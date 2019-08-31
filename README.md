@@ -30,29 +30,29 @@ This is the summary
 Send a GET request to receive all information related to a single user
 
   #### GET /api/v1/users/:id
-   *this should change once we have a login/sessions
+   *this should change once we have a login/sessions*
   ```
   Content-Type: application/json
   Accept: application/json
   ```
 
   ##### Successful Response
-  ```
-  { 
-    "client": {
-      "id": 1,
-      "name": "client 1",
-      "street_address": "1331 17th St.",
-      "city": "Denver",
-      "state": "CO",
-      "zip_code": "80202",
-      "email": "snoopy@example.com"'
-      "phone_number": "9119119911",
-      "username": "username-1",
-      "needs": "example need 1",
-      "allergies": "example allergy 1",
-      "medications": "example medication 1"
-      }
+  ```json
+  {
+    "id": "1",
+    "username": "katierulz",
+    "name": "Katie",
+    "street_address": "123 Test St",
+    "city": "Denver",
+    "state": "CO",
+    "zip": "12345",
+    "email": "katierulz@gmail.com",
+    "phone_number": "1235551234",
+    "needs": "groceries, bills",
+    "allergies": "pollen, peanuts",
+    "medications": "drug_1, drug_2",
+    "created_at": "DateTime",
+    "updated_at": "DateTime"
   }
   ```
   ##### Unsuccessful Response
@@ -69,7 +69,7 @@ Send a GET request to receive a list of all the lists related to a single user
 
   ##### Successful Response
   ```
-  { 
+  {
     "client": {
       "id": 1'
       "lists": {
@@ -156,7 +156,7 @@ Send a POST request with valid task parameters to create a new task.
 
   ##### Successful Request
   ```
-  { 
+  {
     "name": "new task",
     "description": "description of task the new task",
     "completed": "false",
@@ -166,7 +166,7 @@ Send a POST request with valid task parameters to create a new task.
 
   ##### Successful Response
   ```
-  { 
+  {
     "id": "1",
     "name": "new task",
     "description": "description of task the new task",
@@ -177,7 +177,7 @@ Send a POST request with valid task parameters to create a new task.
 
   ##### Requirements
   - If missing an ID or name,  a 404 status code (page not found) will be returned. Description is optional.
-  
+
 ----------
 
 ## Contributing
