@@ -177,6 +177,7 @@ Send a POST request with valid task parameters to create a new task.
 
   ##### Requirements
   - If missing an ID or name,  a 404 status code (page not found) will be returned. Description is optional.
+  
 ----------
 
 ## Contributing
