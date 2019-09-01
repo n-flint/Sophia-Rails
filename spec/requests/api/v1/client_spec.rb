@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Client Profile Endpoint" do
+RSpec.describe "Client API" do
   it "can give client profile info" do
     client = create(:client)
 
@@ -23,5 +23,15 @@ RSpec.describe "Client Profile Endpoint" do
     expect(found_client).to have_key(:medications)
     expect(found_client).to have_key(:created_at)
     expect(found_client).to have_key(:updated_at)
+  end
+
+  it "returns 404 with non existing id" do
+    get "/api/v1/clients/342"
+
+    expect(status).to eq(404)
+
+    error = JSON.parse(response.body, symbolize_names: true)
+
+    expect(error[:message]).to eq('Not Found')
   end
 end
