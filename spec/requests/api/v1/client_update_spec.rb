@@ -43,7 +43,6 @@ RSpec.describe 'Clients API' do
                 "allergies": "Updated, Pollen, Hard-Work",
                 "medications": "UpdatedCannabis"
     }.to_json
-
   end
   it 'can update a client portfolio' do
     headers = { 'CONTENT_TYPE' => 'application/json'}
