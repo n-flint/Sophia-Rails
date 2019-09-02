@@ -73,4 +73,16 @@ RSpec.describe 'Clients API' do
     expect(response.code).to eq('404')
     expect(data['message']).to eq('Username Must Be Unique')
   end
+  it 'receives a 404 if updated email is not unique' do
+    updated_client = {
+                "email": "#{@current_client_2.email}"
+    }.to_json
+    headers = { 'CONTENT_TYPE' => 'application/json'}
+    patch "/api/v1/clients/#{@current_client_1.id}", params: updated_client, headers: headers
+
+    data = JSON.parse(response.body)
+
+    expect(response.code).to eq('404')
+    expect(data['message']).to eq('Email Must Be Unique')
+  end
 end
