@@ -69,8 +69,9 @@ RSpec.describe 'Clients API' do
 
     data = JSON.parse(response.body)
 
-    expect(response.code).to eq('404')
-    expect(data['message']).to eq('Username Must Be Unique')
+    expect(response.code).to eq('400')
+    # require 'pry'; binding.pry
+    expect(data['username']).to eq(['has already been taken'])
   end
   it 'recieves a 404 if email is not unique' do
     invalid_client = {
@@ -92,7 +93,7 @@ RSpec.describe 'Clients API' do
 
     data = JSON.parse(response.body)
 
-    expect(response.code).to eq('404')
-    expect(data['message']).to eq('Email Must Be Unique')
+    expect(response.code).to eq('400')
+    expect(data['email']).to eq(['has already been taken'])
   end
 end
