@@ -8,7 +8,6 @@ class Api::V1::ClientsController < ApplicationController
   end
 
   def update
-    # require 'pry'; binding.pry
     if Client.exists?(:username => client_params['username'])
       render json: { message: "Username Must Be Unique" }, status: 404
     elsif Client.exists?(:email => client_params['email'])
