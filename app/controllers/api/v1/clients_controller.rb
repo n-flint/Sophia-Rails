@@ -17,6 +17,15 @@ class Api::V1::ClientsController < ApplicationController
       client.update(client_params)
       client.save
       render json: client, status: 200
+    end 
+  end
+    
+  def create
+    new_client = Client.new(client_params)
+    if new_client.save
+      render json: new_client, status: 201
+    else
+      render json: new_client.errors, status: 400
     end
   end
 
