@@ -21,7 +21,9 @@ RSpec.describe 'Clients API' do
     headers = { 'CONTENT_TYPE' => 'application/json'}
     delete "/api/v1/clients/#{@current_client_1.id}", params: @updated_client, headers: headers
 
-    data = JSON.parse(response.body)
+    expect(status).to eq(204)
+
+    expect(Client.all.count).to eq(0)
   end
   it 'receives a 404 if id provided is not valid' do
     headers = { 'CONTENT_TYPE' => 'application/json'}
