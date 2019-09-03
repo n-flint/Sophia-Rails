@@ -1,4 +1,6 @@
 class Api::V1::ClientsController < ApplicationController
+  protect_from_forgery with: :null_session
+
   def show
     if Client.exists?(params[:id])
       render json: Client.find(params[:id])
