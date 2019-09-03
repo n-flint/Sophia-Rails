@@ -21,15 +21,130 @@ This is the summary
 
 ## Endpoints
   - [User Profile](#user-profile)
-  - [All Lists](#all-lists)
-  - [Single List](#single-list)
-  - [Create A List](#create-a-list)
-  - [Create A Task](#create-a-task)
+  - [Client Creation](#client-creation)
+  - [Client Deletion](#client-deletion)
+  - [Client Update](#client-update)
 
-## User Profile
+## Client Creation
+Send a POST request to create a client
+
+  #### POST /api/v1/clients/
+
+  ##### headers:
+  ```
+  Content-Type: application/json
+  Accept: application/json
+  ```
+
+#### body:
+```json
+{
+    "username": "string-required",
+    "name": "string-required",
+    "street_address": "string-required",
+    "city": "string-required",
+    "state": "string-required",
+    "zip": "string-required",
+    "email": "string-required",
+    "phone_number": "string-required",
+    "needs": "string",
+    "allergies": "string",
+    "medications": "string"
+}
+```
+
+  ##### Successful Response
+  ```json
+  {
+    "id": "1",
+    "username": "katierulz",
+    "name": "Katie",
+    "street_address": "123 Test St",
+    "city": "Denver",
+    "state": "CO",
+    "zip": "12345",
+    "email": "katierulz@gmail.com",
+    "phone_number": "1235551234",
+    "needs": "groceries, bills",
+    "allergies": "pollen, peanuts",
+    "medications": "drug_1, drug_2",
+    "created_at": "DateTime",
+    "updated_at": "DateTime"
+  }
+  ```
+  #### Unsuccessful Responses:
+  ##### Email Taken:
+  ```json
+  {
+    "email": ["has already been taken"]
+  }
+  ```
+
+  ##### Empty state:
+  ```json
+  {
+    "state": ["can't be blank"]
+  }
+  ```
+
+## Client Update
+Send a PATCH request to update a clients profile
+
+  #### PATCH /api/v1/clients/:id
+
+  #### Headers:
+  ```
+  Content-Type: application/json
+  Accept: application/json
+  ```
+
+  #### Body:
+  ```json
+  {
+    "client": {
+      "email": "vincecarollo@gmail.com"
+    }
+  }
+  ```
+
+  ##### Successful Response
+  ```json
+  {
+    "id": "1",
+    "username": "katierulz",
+    "name": "Katie",
+    "street_address": "123 Test St",
+    "city": "Denver",
+    "state": "CO",
+    "zip": "12345",
+    "email": "vincecarollo@gmail.com",
+    "phone_number": "1235551234",
+    "needs": "groceries, bills",
+    "allergies": "pollen, peanuts",
+    "medications": "drug_1, drug_2",
+    "created_at": "DateTime",
+    "updated_at": "DateTime"
+  }
+  ```
+  ##### Unsuccessful Response
+  A valid user ID must be provided otherwise a 404 status code (page not found) will be returned.
+
+## Client Deletion
+Send a DELETE request to delete a client
+
+  #### DELETE /api/v1/clients/:id
+
+  ##### Successful Response:
+
+  will return a 204 status code with no body
+
+  ##### Unsuccessful Response
+  A valid user ID must be provided otherwise a 404 status code (page not found) will be returned.
+
+## Client Profile
 Send a GET request to receive all information related to a single user
 
-  #### GET /api/v1/users/:id
+  #### GET /api/v1/clients/:id
    *this should change once we have a login/sessions*
   ```
   Content-Type: application/json
@@ -57,128 +172,3 @@ Send a GET request to receive all information related to a single user
   ```
   ##### Unsuccessful Response
   A valid user ID must be provided otherwise a 404 status code (page not found) will be returned.
-
-## All Lists
-Send a GET request to receive a list of all the lists related to a single user
-
-  #### GET api/v1/users/:id/lists
-  ```
-  Content-Type: application/json
-  Accept: application/json
-  ```
-
-  ##### Successful Response
-  ```
-  {
-    "client": {
-      "id": 1'
-      "lists": {
-        "some sort of lists would go here... hopefully"
-        }
-    }
-  }
-  ```
-
-  ##### Requirements
-  - A valid ID must be provided otherwise a 404 status code (page not found) will be returned.
-
-## Single List
-
-Send a GET request to receive a single list
-
-  #### GET /api/v1/users/:id/lists/:list_id
-  ```
-  Content-Type: application/json
-  Accept: application/json
-  ```
-
-  ##### Successful Response
-  ```
-  {
-    "id": "1",
-    "name": "list one",
-    "tasks": {
-      "task_1": {
-        "name": "task name uno",
-        "description": "this is the description of the first task",
-        "completed": "false",
-        "due_date": "12-25-2025"
-      },
-      "task_2": {
-        "name": "task name dos",
-        "description": "this is the description of the second task",
-        "completed": "true",
-        "due_date": "01-01-2026"
-      }
-    }
-
-  }
-  ```
-
-  ##### Requirements
-  -  If the user ID or the list ID are invalid, a 404 status code (page not found) will be returned.
-
-## Create A List
-
-Send a POST request with valid list parameters to create a new list.
-
-  #### POST /api/v1/users/:id/lists
-  ```
-  Content-Type: application/json
-  Accept: application/json
-  ```
-
-  ##### Successful Request
-  ```
-  { "name": "new list" }
-  ```
-
-  ##### Successful Response
-  ```
-  {
-    "id": "1",
-    "name": "new list uno"
-  }
-  ```
-
-  ##### Requirements
-  - If a valid name a is not provided, a 404 status code (page not found) will be returned.
-
-## Create A Task
-
-Send a POST request with valid task parameters to create a new task.
-
-  #### POST /api/v1/users/:id/lists/:id/tasks
-  ```
-  Content-Type: application/json
-  Accept: application/json
-  ```
-
-  ##### Successful Request
-  ```
-  {
-    "name": "new task",
-    "description": "description of task the new task",
-    "completed": "false",
-    "due_date": "12-12-2077"
-   }
-  ```
-
-  ##### Successful Response
-  ```
-  {
-    "id": "1",
-    "name": "new task",
-    "description": "description of task the new task",
-    "completed": "false",
-    "due_date": "12-12-2077"
-   }
-  ```
-
-  ##### Requirements
-  - If missing an ID or name,  a 404 status code (page not found) will be returned. Description is optional.
-
-----------
-
-## Contributing
-   - Please open a pull request to contribute! Vince loves feedback!!!
