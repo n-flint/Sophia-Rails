@@ -14,7 +14,7 @@ RSpec.describe 'Clients API' do
                 "needs": "Grocery, Bills",
                 "allergies": "Pollen, Hard-Work",
                 "medications": "Cannabis"
-    }) 
+    })
 
     @current_client_2 = Client.create({
                 "username": "existing_user_2",
@@ -28,7 +28,7 @@ RSpec.describe 'Clients API' do
                 "needs": "Grocery, Bills",
                 "allergies": "Pollen, Hard-Work",
                 "medications": "Cannabis"
-    }) 
+    })
 
     @updated_client = {
                 "username": "updated_user",
@@ -44,11 +44,13 @@ RSpec.describe 'Clients API' do
                 "medications": "UpdatedCannabis"
     }.to_json
   end
+
   it 'can update a client portfolio' do
     headers = { 'CONTENT_TYPE' => 'application/json'}
     patch "/api/v1/clients/#{@current_client_1.id}", params: @updated_client, headers: headers
 
     data = JSON.parse(response.body)
+    updated_client = Client.first
 
     expect(data['username']).to eq('updated_user')
     expect(data['name']).to eq('name2')
@@ -59,7 +61,10 @@ RSpec.describe 'Clients API' do
     expect(data['needs']).to eq('Updated,Grocery, Bills')
     expect(data['allergies']).to eq('Updated, Pollen, Hard-Work')
     expect(data['medications']).to eq('UpdatedCannabis')
+
+    expect(updated_client.username).to eq('updated_user')
   end
+
   it 'receives a 404 if updated username is not unique' do
     updated_client = {
                 "username": "#{@current_client_2.username}"
@@ -72,6 +77,7 @@ RSpec.describe 'Clients API' do
     expect(response.code).to eq('404')
     expect(data['message']).to eq('Username Must Be Unique')
   end
+
   it 'receives a 404 if updated email is not unique' do
     updated_client = {
                 "email": "#{@current_client_2.email}"
