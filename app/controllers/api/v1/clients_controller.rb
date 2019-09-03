@@ -7,6 +7,15 @@ class Api::V1::ClientsController < ApplicationController
     end
   end
 
+  def destroy
+    if Client.exists?(params['id'])
+      Client.find(params['id']).destroy
+      render json: {}, status: 204
+    else
+      render json: { message: "Invalid ID" }, status: 404
+    end
+  end
+
   def update
     if Client.exists?(:username => client_params['username'])
       render json: { message: "Username Must Be Unique" }, status: 404
@@ -17,9 +26,9 @@ class Api::V1::ClientsController < ApplicationController
       client.update(client_params)
       client.save
       render json: client, status: 200
-    end 
+    end
   end
-    
+
   def create
     new_client = Client.new(client_params)
     if new_client.save
