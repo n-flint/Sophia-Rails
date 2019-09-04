@@ -100,11 +100,10 @@ Send a PATCH request to update a clients profile
 
   #### Body:
   ```json
-  {
-    "client": {
-      "email": "vincecarollo@gmail.com"
-    }
-  }
+{
+  "email": "vincecarollo@gmail.com"
+}
+
   ```
 
   ##### Successful Response
@@ -149,6 +148,46 @@ Send a GET request to receive all information related to a single user
   ```
   Content-Type: application/json
   Accept: application/json
+  ```
+
+  ##### Successful Response
+  ```json
+  {
+    "id": "1",
+    "username": "katierulz",
+    "name": "Katie",
+    "street_address": "123 Test St",
+    "city": "Denver",
+    "state": "CO",
+    "zip": "12345",
+    "email": "katierulz@gmail.com",
+    "phone_number": "1235551234",
+    "needs": "groceries, bills",
+    "allergies": "pollen, peanuts",
+    "medications": "drug_1, drug_2",
+    "created_at": "DateTime",
+    "updated_at": "DateTime"
+  }
+  ```
+  ##### Unsuccessful Response
+  A valid user ID must be provided otherwise a 404 status code (page not found) will be returned.
+
+## List Creation
+Send a POST request to create a list for a client
+
+  #### POST /api/v1/clients/:client_id/lists
+
+  ##### Headers:
+  ```
+  Content-Type: application/json
+  Accept: application/json
+  ```
+
+  ##### Body:
+  ```json
+  {
+    "name": "Groceries"
+  }
   ```
 
   ##### Successful Response
