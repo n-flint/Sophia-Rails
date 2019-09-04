@@ -45,9 +45,9 @@ RSpec.describe 'Clients API' do
     expect(data['zip']).to eq('80203')
     expect(data['email']).to eq('new@email.com')
     expect(data['phone_number']).to eq('246342176')
-    expect(data['needs']).to eq('Grocery, Bills')
-    expect(data['allergies']).to eq('Pollen, Hard-Work')
-    expect(data['medications']).to eq('Cannabis')
+    expect(data['needs']).to eq(['Grocery', 'Bills'])
+    expect(data['allergies']).to eq(['Pollen', 'Hard-Work'])
+    expect(data['medications']).to eq(['Cannabis'])
   end
   it 'recieves a 404 if username is not unique' do
     invalid_client = {
