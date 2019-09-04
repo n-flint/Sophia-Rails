@@ -79,9 +79,9 @@ Send a POST request to create a client
     "zip": "string-required",
     "email": "string-required",
     "phone_number": "string-required",
-    "needs": "string",
-    "allergies": "string",
-    "medications": "string"
+    "needs": ["array"],
+    "allergies": ["array"],
+    "medications": ["array"]
 }
 ```
 
@@ -97,9 +97,9 @@ Send a POST request to create a client
     "zip": "12345",
     "email": "katierulz@gmail.com",
     "phone_number": "1235551234",
-    "needs": "groceries, bills",
-    "allergies": "pollen, peanuts",
-    "medications": "drug_1, drug_2",
+    "needs": ["groceries", "bills"],
+    "allergies": ["pollen", "peanuts"],
+    "medications": ["drug_1", "drug_2"],
     "created_at": "DateTime",
     "updated_at": "DateTime"
   }
@@ -132,11 +132,10 @@ Send a PATCH request to update a clients profile
 
   #### Body:
   ```json
-  {
-    "client": {
-      "email": "vincecarollo@gmail.com"
-    }
-  }
+{
+  "email": "vincecarollo@gmail.com"
+}
+
   ```
 
   ##### Successful Response
@@ -151,9 +150,9 @@ Send a PATCH request to update a clients profile
     "zip": "12345",
     "email": "vincecarollo@gmail.com",
     "phone_number": "1235551234",
-    "needs": "groceries, bills",
-    "allergies": "pollen, peanuts",
-    "medications": "drug_1, drug_2",
+    "needs": ["groceries", "bills"],
+    "allergies": ["pollen", "peanuts"],
+    "medications": ["drug_1", "drug_2"],
     "created_at": "DateTime",
     "updated_at": "DateTime"
   }
@@ -195,11 +194,42 @@ Send a GET request to receive all information related to a single user
     "zip": "12345",
     "email": "katierulz@gmail.com",
     "phone_number": "1235551234",
-    "needs": "groceries, bills",
-    "allergies": "pollen, peanuts",
-    "medications": "drug_1, drug_2",
+    "needs": ["groceries", "bills"],
+    "allergies": ["pollen", "peanuts"],
+    "medications": ["drug_1", "drug_2"],
     "created_at": "DateTime",
     "updated_at": "DateTime"
+  }
+  ```
+  ##### Unsuccessful Response
+  A valid user ID must be provided otherwise a 404 status code (page not found) will be returned.
+  
+## List Creation
+Send a POST request to create a list for a client
+
+  #### POST /api/v1/clients/:client_id/lists
+
+  ##### Headers:
+  ```
+  Content-Type: application/json
+  Accept: application/json
+  ```
+
+  ##### Body:
+  ```json
+  {
+    "name": "Groceries"
+  }
+  ```
+
+  ##### Successful Response
+  ```json
+  {
+      "id": 1,
+      "name": "groceries",
+      "client_id": 2,
+      "created_at": "2019-09-04T22:14:25.439Z",
+      "updated_at": "2019-09-04T22:14:25.439Z"
   }
   ```
   ##### Unsuccessful Response
@@ -229,3 +259,4 @@ coming soon...
 ## Frontend Repo
 
 * Github: [Sophia Repo](https://github.comkalex19/Sophia-Native)
+
