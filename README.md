@@ -221,10 +221,10 @@ coming soon...
 
 👤 **Noah Flint, Vince Carollo, Katie Lewis, Andreea Hanson**
 
-* Github: [@Kalex19](https://github.com/Kalex19)
-* Github: [@andreeahanson](https://github.com/andreeahanson)
 * Github: [@n-flint](https://github.com/n-flint)
 * Github: [@VinceCarollo](https://github.com/VinceCarollo)
+* Github: [@Kalex19](https://github.com/Kalex19)
+* Github: [@andreeahanson](https://github.com/andreeahanson)
 
 ## Frontend Repo
 
