@@ -50,7 +50,7 @@ class Api::V1::ClientsController < ApplicationController
     allergies = params[:allergies].join(', ')
     new_client.update_attributes(needs: needs, medications: medications, allergies: allergies)
     if new_client.save
-      render json: new_client, status: 201
+      render json: ClientSerializer.new(new_client), status: 201
     else
       render json: new_client.errors, status: 400
     end
