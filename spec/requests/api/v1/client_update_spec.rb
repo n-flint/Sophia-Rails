@@ -39,9 +39,9 @@ RSpec.describe 'Clients API' do
                 "zip": "updated80203",
                 "email": "Updatedexample@email.com",
                 "phone_number": "new246342176",
-                "needs": "Updated,Grocery, Bills",
-                "allergies": "Updated, Pollen, Hard-Work",
-                "medications": "UpdatedCannabis"
+                "needs": ["Updated", "Grocery", "Bills"],
+                "allergies": ["Updated", "Pollen", "Hard-Work"],
+                "medications": ["Updated", "Cannabis"]
     }.to_json
   end
 
@@ -58,10 +58,9 @@ RSpec.describe 'Clients API' do
     expect(data['city']).to eq('UpdatedDenver')
     expect(data['state']).to eq('CO')
     expect(data['zip']).to eq('updated80203')
-    expect(data['needs']).to eq('Updated,Grocery, Bills')
-    expect(data['allergies']).to eq('Updated, Pollen, Hard-Work')
-    expect(data['medications']).to eq('UpdatedCannabis')
-
+    expect(data['needs']).to eq(['Updated', 'Grocery', 'Bills'])
+    expect(data['allergies']).to eq(['Updated', 'Pollen', 'Hard-Work'])
+    expect(data['medications']).to eq(['Updated', 'Cannabis'])
     expect(updated_client.username).to eq('updated_user')
   end
 

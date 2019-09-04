@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Clients API' do
-  before :each do 
+  before :each do
     @new_client = {
                 "username": "username1",
                 "name": "name1",
@@ -11,9 +11,9 @@ RSpec.describe 'Clients API' do
                 "zip": "80203",
                 "email": "new@email.com",
                 "phone_number": "246342176",
-                "needs": "Grocery, Bills",
-                "allergies": "Pollen, Hard-Work",
-                "medications": "Cannabis"
+                "needs": ["Grocery", "Bills"],
+                "allergies": ["Pollen", "Hard-Work"],
+                "medications": ["Cannabis"]
     }.to_json
 
     @current_client = Client.create({
@@ -28,7 +28,7 @@ RSpec.describe 'Clients API' do
                 "needs": "Grocery, Bills",
                 "allergies": "Pollen, Hard-Work",
                 "medications": "Cannabis"
-    }) 
+    })
   end
   it 'can create a new client profile' do
     headers = { 'CONTENT_TYPE' => 'application/json'}
@@ -59,12 +59,12 @@ RSpec.describe 'Clients API' do
                 "zip": "80203",
                 "email": "example2@email.com",
                 "phone_number": "246342176",
-                "needs": "Grocery, Bills",
-                "allergies": "Pollen, Hard-Work",
-                "medications": "Cannabis"
+                "needs": ["Grocery", "Bills"],
+                "allergies": ["Pollen", "Hard-Work"],
+                "medications": ["Cannabis"]
     }.to_json
     headers = { 'CONTENT_TYPE' => 'application/json'}
-    
+
     post '/api/v1/clients', params: invalid_client, headers: headers
 
     data = JSON.parse(response.body)
@@ -83,9 +83,9 @@ RSpec.describe 'Clients API' do
                 "zip": "80203",
                 "email": "#{@current_client.email}",
                 "phone_number": "246342176",
-                "needs": "Grocery, Bills",
-                "allergies": "Pollen, Hard-Work",
-                "medications": "Cannabis"
+                "needs": ["Grocery", "Bills"],
+                "allergies": ["Pollen", "Hard-Work"],
+                "medications": ["Cannabis"]
     }.to_json
     headers = { 'CONTENT_TYPE' => 'application/json'}
 
