@@ -1,4 +1,5 @@
 class Api::V1::ListsController < ApplicationController
+  protect_from_forgery with: :null_session
 
   def create
     new_list = List.new(list_params)
