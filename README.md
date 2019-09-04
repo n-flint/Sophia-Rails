@@ -1,21 +1,53 @@
-# Sophia
-This is the summary
+<h1 align="center">SOPHIA</h1>
 
-## Learning Goals
-  - First learning goal
-  - Second learning goal
+<h3 align="center">Speech Operated Personal Household Interactive Assistant</h3>
+
+
+## Table of Contents
+* [Description](#Description)
+* [Technologies Used](#Technologies-Used)
+* [Learning Goals](#Learning-Goals)
+* [How To Use](#How-To-Use)
+* [Endpoints](#Endpoints)
+* [Challenges](#Challenges)
+* [Successes](#Successes)
+* [Extensions](#Extensions)
+* [Developers](#Developers)
+* [Frontend Repo](#Frontend-Repo)
+
+## Description
+
+SOPHIA is a speech operated personal household interactive assistant. This app is built for two audiences: Clients and Caretakers. Clients are anyone with a disability (physical, cognitive, long-term, temporary) who needs care. Caretakers include anyone who is willing to help take care of clients. Taking care could include running errands, cleaning, yardwork, paying bills, grocery shopping, etc. SOPHIA was built to connect clients to caretakers to help meet their daily needs. 
+
+Please reference the user stories to understand the full functionality of SOPHIA. 
+
+SOPHIA is an A11Y app with a large focus on accessibility. 
 
 ## Technologies Used
   - [Ruby](https://ruby-doc.org/)
   - [Ruby On Rails](https://guides.rubyonrails.org/)
   - [Travis CI](https://travis-ci.org)
 
+## Learning Goals
+
+This is a unique opportunity that presents some valuable goals:
+
+* Ultimately, demonstrate knowledge you’ve gained throughout Turing
+* Use an agile process to turn well defined requirements into deployed and production ready software
+* Gain experience dividing applications into components and domains of responsibilities to facilitate multi-developer teams. 
+* Service oriented architecture concepts and patterns are highly encouraged.
+* Explore and implement new concepts, patterns, or libraries that have not been explicitly taught while at Turing
+* Practice an advanced, professional git workflow (see whole-team expectations)
+* Gain more experience using continuous integration tools to build and automate the deployment of features in various environments
+* Build applications that execute in development, test, CI, and production environments
+* Focus on communication between front-end and back-end teams in order to complete and deploy features that have been outlined by the project spec
+
 ## Setup
 1. Clone this repository
 2. Further instructions to come
 
-  ### Testing
-  1. Instructions for setting up rspec here
+### Testing
+1. Instructions for setting up rspec here
 
 ---
 
@@ -171,7 +203,7 @@ Send a GET request to receive all information related to a single user
   ```
   ##### Unsuccessful Response
   A valid user ID must be provided otherwise a 404 status code (page not found) will be returned.
-
+  
 ## List Creation
 Send a POST request to create a list for a client
 
@@ -202,3 +234,29 @@ Send a POST request to create a list for a client
   ```
   ##### Unsuccessful Response
   A valid user ID must be provided otherwise a 404 status code (page not found) will be returned.
+  
+## Challenges
+
+coming soon...
+
+## Successes
+
+coming soon...
+
+## Extensions
+
+coming soon...
+
+## Developers
+
+👤 **Noah Flint, Vince Carollo, Katie Lewis, Andreea Hanson**
+
+* Github: [@n-flint](https://github.com/n-flint)
+* Github: [@VinceCarollo](https://github.com/VinceCarollo)
+* Github: [@Kalex19](https://github.com/Kalex19)
+* Github: [@andreeahanson](https://github.com/andreeahanson)
+
+## Frontend Repo
+
+* Github: [Sophia Repo](https://github.comkalex19/Sophia-Native)
+
