@@ -4,6 +4,8 @@ RSpec.describe 'Clients API' do
   before :each do
     @new_client = {
                 "username": "username1",
+                "password": "pass",
+                "password_confirmation": "pass",
                 "name": "name1",
                 "street_address": "123 Fake St.",
                 "city": "Denver",
@@ -13,11 +15,13 @@ RSpec.describe 'Clients API' do
                 "phone_number": "246342176",
                 "needs": ["Grocery", "Bills"],
                 "allergies": ["Pollen", "Hard-Work"],
-                "medications": ["Cannabis"]
+                "medications": ["Cannabis"],
+                "diet_restrictions": ["vegetarian", "peanut-free"]
     }.to_json
 
-    @current_client = Client.create({
+    @current_client = Client.create!({
                 "username": "existing_user",
+                "password": "pass",
                 "name": "name1",
                 "street_address": "123 Fake St.",
                 "city": "Denver",
@@ -27,9 +31,11 @@ RSpec.describe 'Clients API' do
                 "phone_number": "246342176",
                 "needs": "Grocery, Bills",
                 "allergies": "Pollen, Hard-Work",
-                "medications": "Cannabis"
+                "medications": "Cannabis",
+                "diet_restrictions": "vegetarian, peanut-free"
     })
   end
+
   it 'can create a new client profile' do
     headers = { 'CONTENT_TYPE' => 'application/json'}
     post '/api/v1/clients', params: @new_client, headers: headers
@@ -48,10 +54,14 @@ RSpec.describe 'Clients API' do
     expect(data['needs']).to eq(['Grocery', 'Bills'])
     expect(data['allergies']).to eq(['Pollen', 'Hard-Work'])
     expect(data['medications']).to eq(['Cannabis'])
+    expect(data['diet_restrictions']).to eq(['vegetarian', 'peanut-free'])
   end
+
   it 'recieves a 404 if username is not unique' do
     invalid_client = {
                 "username": "#{@current_client.username}",
+                "password": "pass",
+                "password_confirmation": "pass",
                 "name": "name1",
                 "street_address": "123 Fake St.",
                 "city": "Denver",
@@ -61,7 +71,8 @@ RSpec.describe 'Clients API' do
                 "phone_number": "246342176",
                 "needs": ["Grocery", "Bills"],
                 "allergies": ["Pollen", "Hard-Work"],
-                "medications": ["Cannabis"]
+                "medications": ["Cannabis"],
+                "diet_restrictions": ["vegetarian", "peanut_free"],
     }.to_json
     headers = { 'CONTENT_TYPE' => 'application/json'}
 
@@ -73,19 +84,23 @@ RSpec.describe 'Clients API' do
     # require 'pry'; binding.pry
     expect(data['username']).to eq(['has already been taken'])
   end
+
   it 'recieves a 404 if email is not unique' do
     invalid_client = {
                 "username": "name1",
+                "password": "pass",
+                "password_confirmation": "pass",
                 "name": "name1",
                 "street_address": "123 Fake St.",
                 "city": "Denver",
                 "state": "CO",
                 "zip": "80203",
-                "email": "#{@current_client.email}",
+                "email": @current_client.email,
                 "phone_number": "246342176",
                 "needs": ["Grocery", "Bills"],
                 "allergies": ["Pollen", "Hard-Work"],
-                "medications": ["Cannabis"]
+                "medications": ["Cannabis"],
+                "diet_restrictions": ["vegetarian", "peanut_free"],
     }.to_json
     headers = { 'CONTENT_TYPE' => 'application/json'}
 

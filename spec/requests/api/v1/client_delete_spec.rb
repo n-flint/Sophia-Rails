@@ -4,6 +4,7 @@ RSpec.describe 'Clients API' do
   before :each do
     @current_client_1 = Client.create({
                 "username": "existing_user_1",
+                "password": "password",
                 "name": "name1",
                 "street_address": "123 Fake St.",
                 "city": "Denver",

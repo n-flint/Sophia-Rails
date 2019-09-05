@@ -1,5 +1,15 @@
 class Api::V1::ClientsController < ApplicationController
   protect_from_forgery with: :null_session
+  wrap_parameters :client, include: [:username,
+                                     :password,
+                                     :password_confirmation,
+                                     :name,
+                                     :email,
+                                     :phone_number,
+                                     :street_address,
+                                     :city,
+                                     :state,
+                                     :zip]
 
   def show
     if Client.exists?(params[:id])
@@ -31,6 +41,10 @@ class Api::V1::ClientsController < ApplicationController
         needs = params[:needs].join(', ')
         client.update_attributes(needs: needs)
       end
+      if params[:diet_restrictions]
+        diet_restrictions = params[:diet_restrictions].join(', ')
+        client.update_attributes(diet_restrictions: diet_restrictions)
+      end
       if params[:medications]
         medications = params[:medications].join(', ')
         client.update_attributes(medications: medications)
@@ -48,7 +62,8 @@ class Api::V1::ClientsController < ApplicationController
     needs = params[:needs].join(', ')
     medications = params[:medications].join(', ')
     allergies = params[:allergies].join(', ')
-    new_client.update_attributes(needs: needs, medications: medications, allergies: allergies)
+    diet_restrictions = params[:diet_restrictions].join(', ')
+    new_client.update_attributes(diet_restrictions: diet_restrictions, needs: needs, medications: medications, allergies: allergies)
     if new_client.save
       render json: ClientSerializer.new(new_client), status: 201
     else
@@ -59,6 +74,15 @@ class Api::V1::ClientsController < ApplicationController
   private
 
   def client_params
-    params.require(:client).permit(:username, :name, :email, :phone_number, :street_address, :city, :state, :zip)
+    params.require(:client).permit(:username,
+                                   :password,
+                                   :password_confirmation,
+                                   :name,
+                                   :email,
+                                   :phone_number,
+                                   :street_address,
+                                   :city,
+                                   :state,
+                                   :zip)
   end
 end
