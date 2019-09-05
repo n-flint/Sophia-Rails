@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(version: 2019_09_05_170807) do
     t.string "medications"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "diet_restrictions"
+    t.string "password_digest"
   end
 
   create_table "lists", force: :cascade do |t|
