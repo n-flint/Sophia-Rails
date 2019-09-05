@@ -16,11 +16,16 @@ RSpec.describe 'Tasks API' do
     post "/api/v1/clients/#{client.id}/lists/#{list.id}/tasks", params: task_params, headers: headers
 
     data = JSON.parse(response.body)
-    
+    task = Task.last
+
     expect(data['name']).to eq('task uno')
     expect(data['description']).to eq('first task description')
     expect(data['completed']).to eq(false)
     expect(data).to have_key('due_date')
+    expect(task.list.client).to eq(client)
+    expect(task.description).to eq('first task description')
+    expect(task.name).to eq('task uno')
+    expect(task.completed).to be false
   end
 
     it 'recieves a 404 if list_id is invalid' do
