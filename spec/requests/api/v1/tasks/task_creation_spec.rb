@@ -1,0 +1,41 @@
+require 'rails_helper'
+
+RSpec.describe 'Tasks API' do
+  it 'can create a new task' do
+    client = create(:client)
+    list = List.create(name: 'list numero uno', client_id: "#{client.id}")
+    task_params = {
+      list_id: "#{list.id}",
+      description: 'first task description',
+      name: 'task uno',
+      completed: 'false'
+    }.to_json
+    headers = { 'CONTENT_TYPE' => 'application/json'}
+
+    post "/api/v1/clients/#{client.id}/lists/#{list.id}/tasks", params: task_params, headers: headers
+
+    data = JSON.parse(response.body)
+    
+    expect(data['name']).to eq('task uno')
+    expect(data['description']).to eq('first task description')
+  end
+
+    it 'recieves a 404 if list_id is invalid' do
+    client = create(:client)
+    list = List.create(name: 'list numero uno', client_id: "#{client.id}")
+    task_params = {
+      list_id: "wrong_id",
+      description: 'first task description',
+      name: 'task uno',
+      completed: 'false'
+    }.to_json
+    headers = { 'CONTENT_TYPE' => 'application/json'}
+
+    post "/api/v1/clients/#{client.id}/lists/wrong_id/tasks", params: task_params, headers: headers
+
+    data = JSON.parse(response.body)
+
+    expect(status).to eq(404)
+    expect(data['list']).to eq(['must exist'])
+  end
+end
