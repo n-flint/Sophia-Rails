@@ -247,6 +247,39 @@ Send a POST request to create a list for a client
   ##### Unsuccessful Response
   A valid user ID must be provided otherwise a 404 status code (page not found) will be returned.
 
+## List Index
+Send a GET request to show all lists associated with a client
+
+  #### GET /api/v1/clients/:client_id/lists
+
+  ##### Headers:
+  ```
+  Content-Type: application/json
+  Accept: application/json
+  ```
+
+  ##### Successful Response
+  ```json
+  [
+    {
+      "id": 1,
+      "name": "groceries",
+      "client_id": 2,
+      "created_at": "2019-09-04T22:14:25.439Z",
+      "updated_at": "2019-09-04T22:14:25.439Z"
+    },
+    {
+      "id": 2,
+      "name": "bills",
+      "client_id": 2,
+      "created_at": "2019-09-04T22:14:25.439Z",
+      "updated_at": "2019-09-04T22:14:25.439Z"
+    }
+  ]
+  ```
+  ##### Unsuccessful Response
+  A valid user ID must be provided otherwise a 404 status code (page not found) will be returned.
+
 ## Challenges
 
 coming soon...
