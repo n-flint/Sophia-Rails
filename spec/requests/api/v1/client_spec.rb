@@ -21,6 +21,7 @@ RSpec.describe "Client API" do
     expect(found_client).to have_key(:needs)
     expect(found_client).to have_key(:allergies)
     expect(found_client).to have_key(:medications)
+    expect(found_client).to have_key(:diet_restrictions)
     expect(found_client).to have_key(:created_at)
     expect(found_client).to have_key(:updated_at)
     expect(found_client[:needs]).to be_a Array
