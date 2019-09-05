@@ -8,7 +8,8 @@ RSpec.describe 'Tasks API' do
       list_id: "#{list.id}",
       description: 'first task description',
       name: 'task uno',
-      completed: 'false'
+      completed: 'false',
+      due_date: Date.tomorrow
     }.to_json
     headers = { 'CONTENT_TYPE' => 'application/json'}
 
@@ -18,6 +19,8 @@ RSpec.describe 'Tasks API' do
     
     expect(data['name']).to eq('task uno')
     expect(data['description']).to eq('first task description')
+    expect(data['completed']).to eq(false)
+    expect(data).to have_key('due_date')
   end
 
     it 'recieves a 404 if list_id is invalid' do
