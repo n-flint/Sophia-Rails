@@ -10,6 +10,15 @@ class Api::V1::ListsController < ApplicationController
     end
   end
 
+  def index
+    if Client.exists?(params[:client_id])
+      client = Client.find(params[:client_id])
+      render json: client.lists
+    else
+      render json: { message: "Not Found" }, status: 404
+    end
+  end
+
   private
 
   def list_params
