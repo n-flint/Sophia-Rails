@@ -66,6 +66,7 @@ This is a unique opportunity that presents some valuable goals:
   - [List Tasks Creation](#list-tasks-creation)
   - [List Tasks Index](#list-tasks-index)
   - [List Tasks Update](#list-tasks-update)
+  - [List Tasks Deletion](#list-tasks-deletion)
 
 ## Client Creation
 Send a POST request to create a client
@@ -435,6 +436,18 @@ Send a PATCH request to update a task
     "due_date": "date_time"
   }
   ```
+  ##### Unsuccessful Response
+  A valid client, list, and task ID must be provided otherwise a 404 status code (page not found) will be returned.
+
+## List Tasks Deletion
+Send a DELTE request to delete a task
+
+  #### delete /api/v1/clients/:client_id/lists/:list_id/tasks/:task_id
+
+  ##### Successful Response
+
+  Will return a 204 status code with no body.
+
   ##### Unsuccessful Response
   A valid client, list, and task ID must be provided otherwise a 404 status code (page not found) will be returned.
 

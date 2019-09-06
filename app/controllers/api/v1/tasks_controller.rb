@@ -27,6 +27,16 @@ class Api::V1::TasksController < ApplicationController
     render json: { message: "Not Found" }, status: 404
   end
 
+  def destroy
+    client = Client.find(params[:client_id])
+    list = client.lists.find(params[:list_id])
+    task = list.tasks.find(params[:id])
+    task.destroy
+    render json: {}, status: 204
+  rescue ActiveRecord::RecordNotFound
+    render json: { message: "Not Found" }, status: 404
+  end
+
   private
 
   def task_params
