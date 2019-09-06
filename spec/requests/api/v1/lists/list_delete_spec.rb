@@ -4,6 +4,8 @@ RSpec.describe 'List API' do
   before :each do
     @client = create(:client)
     @list = create(:list, client_id: @client.id)
+    @task_1 = create(:task, list_id: @list.id)
+    @task_2 = create(:task, list_id: @list.id)
   end
 
   it 'can delete a list' do
@@ -11,6 +13,7 @@ RSpec.describe 'List API' do
 
     expect(status).to eq(204)
     expect(@client.lists).to eq([])
+    expect(Task.all).to eq([])
   end
 
   it 'returns a 404 if list ID is invalid' do
