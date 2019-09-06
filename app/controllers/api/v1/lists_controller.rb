@@ -19,11 +19,22 @@ class Api::V1::ListsController < ApplicationController
     end
   end
 
+  def update
+    if Client.exists?(params[:client_id]) && List.exists?(params[:id])
+      client = Client.find(params[:client_id])
+      list = client.lists.find(params[:id])
+      list.update_attributes({ name: params[:name] })
+      render json: list
+    else
+      render json: { message: "Not Found" }, status: 404
+    end
+  end
+
   private
 
   def list_params
-    jeremey = params.require(:list).permit(:name)
-    jeremey['client_id'] = params['client_id']
-    jeremey
+    list_params = params.require(:list).permit(:name)
+    list_params['client_id'] = params['client_id']
+    list_params
   end
 end
