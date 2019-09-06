@@ -26,6 +26,13 @@ class Api::V1::ListsController < ApplicationController
     render json: { message: "Not Found" }, status: 404
   end
 
+  def destroy
+    List.destroy(params['id']).destroy
+    render json: {}, status: 204
+  rescue ActiveRecord::RecordNotFound
+    render json: { message: 'Invalid ID'}, status: 404
+  end
+
   private
 
   def list_params
