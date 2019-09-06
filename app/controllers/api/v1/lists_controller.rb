@@ -10,11 +10,27 @@ class Api::V1::ListsController < ApplicationController
     end
   end
 
+  def index
+    client = Client.find(params[:client_id])
+    render json: client.lists
+  rescue ActiveRecord::RecordNotFound
+    render json: { message: "Not Found" }, status: 404
+  end
+
+  def update
+    client = Client.find(params[:client_id])
+    list = client.lists.find(params[:id])
+    list.update_attributes({ name: params[:name] })
+    render json: list
+  rescue ActiveRecord::RecordNotFound
+    render json: { message: "Not Found" }, status: 404
+  end
+
   private
 
   def list_params
-    jeremey = params.require(:list).permit(:name)
-    jeremey['client_id'] = params['client_id']
-    jeremey
+    list_params = params.require(:list).permit(:name)
+    list_params['client_id'] = params['client_id']
+    list_params
   end
 end

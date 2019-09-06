@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :clients, only: [:show, :update, :create, :destroy] do
-        resources :lists, only: [:create] do
+        resources :lists, only: [:create, :index, :update] do
           resources :tasks, only: [:create]
         end
       end
