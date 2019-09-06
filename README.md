@@ -61,7 +61,9 @@ This is a unique opportunity that presents some valuable goals:
   - [List Creation](#list-creation)
   - [List Index](#list-index)
   - [List Update](#list-update)
+  - [List Deletion](#list-deletion)
 - Tasks
+  - [List Tasks Creation](#list-tasks-creation)
   - [List Tasks Index](#list-tasks-index)
   
 ## Client Creation
@@ -307,6 +309,54 @@ Send a PATCH request to update a clients list
     "client_id": 2,
     "created_at": "2019-09-04T22:14:25.439Z",
     "updated_at": "2019-09-04T22:14:25.439Z"
+  }
+
+  ```
+  ##### Unsuccessful Response
+  A valid client and list ID must be provided otherwise a 404 status code (page not found) will be returned.
+  
+## List Deletion
+Send a DELETE request to delete a clients list
+
+  #### delete /api/v1/clients/:client_id/lists/:list_id
+
+  ##### Successful Response:
+
+  Will return a 204 status code with no body. 
+  All tasks associated with the list will also be deleted
+
+  ##### Unsuccessful Response
+  A valid client ID and list ID must be provided otherwise a 404 status code (page not found) will be returned.
+
+## List Task Creation
+Send a POST request to create a list task
+
+  #### post /api/v1/clients/:client_id/lists/:list_id/tasks
+
+  ##### Headers:
+  ```
+  Content-Type: application/json
+  Accept: application/json
+  ```
+  #### Body:
+  ```json
+{
+    "name": "task one",
+    "description": "description of the first task",
+    "due_date": "date_time"
+}
+
+  ```
+
+  ##### Successful Response
+  ```json
+
+  {
+    "id": 1,
+    "name": "task_uno",
+    "description": "description of the first task",
+    "completed": "false",
+    "due_date": "date_time"
   }
 
   ```
