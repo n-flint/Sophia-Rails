@@ -16,5 +16,4 @@ RSpec.describe Client, type: :model do
   describe 'relationships' do
     it { should have_many :lists }
   end
-
 end
