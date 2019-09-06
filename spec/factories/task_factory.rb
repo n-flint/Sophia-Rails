@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :task do
-    sequence :name {|n| "task name #{n}" }
-    description { "task description" }
+    name { Faker::Food.ingredient }
+    description { Faker::Food.measurement }
     completed { false }
-    due_date { Date.tomorrow }
+    due_date { Faker::Date.forward(days: 23) }
   end
 end
