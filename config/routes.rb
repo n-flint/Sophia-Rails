@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :clients, only: [:show, :update, :create, :destroy] do
         resources :lists, only: [:create, :index, :update, :destroy] do
-          resources :tasks, only: [:create, :index]
+          resources :tasks, only: [:create, :index, :update]
         end
       end
     end

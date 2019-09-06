@@ -17,9 +17,19 @@ class Api::V1::TasksController < ApplicationController
     render json: { message: "Not Found" }, status: 404
   end
 
+  def update
+    client = Client.find(params[:client_id])
+    list = client.lists.find(params[:list_id])
+    task = list.tasks.find(params[:id])
+    task.update_attributes(task_params)
+    render json: task
+  rescue ActiveRecord::RecordNotFound
+    render json: { message: "Not Found" }, status: 404
+  end
+
   private
 
   def task_params
-    params.require(:task).permit(:description, :name, :completed, :due_date, :list_id)
+    params.permit(:description, :name, :completed, :due_date, :list_id)
   end
 end
