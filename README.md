@@ -61,7 +61,9 @@ This is a unique opportunity that presents some valuable goals:
   - [List Creation](#list-creation)
   - [List Index](#list-index)
   - [List Update](#list-update)
-
+- Tasks
+  - [List Tasks Index](#list-tasks-index)
+  
 ## Client Creation
 Send a POST request to create a client
 
@@ -307,6 +309,49 @@ Send a PATCH request to update a clients list
     "updated_at": "2019-09-04T22:14:25.439Z"
   }
 
+  ```
+  ##### Unsuccessful Response
+  A valid client and list ID must be provided otherwise a 404 status code (page not found) will be returned.
+
+## List Tasks Index
+Send a GET request to get all tasks associated with a clients list
+
+  #### get /api/v1/clients/:client_id/lists/:list_id/tasks
+
+  ##### Headers:
+  ```
+  Content-Type: application/json
+  Accept: application/json
+  ```
+
+  ##### Successful Response
+  ```json
+[
+  {"id":83,
+    "name":"Coriander Seed",
+    "description":"3 gallon",
+    "completed":false,
+    "list_id":349,
+    "created_at":"2019-09-06T04:43:25.260Z",
+    "updated_at":"2019-09-06T04:43:25.260Z",
+    "due_date":"2019-09-17T00:00:00.000Z"},
+   {"id":84,
+    "name":"Mung Beans",
+    "description":"3 gallon",
+    "completed":false,
+    "list_id":349,
+    "created_at":"2019-09-06T04:43:25.262Z",
+    "updated_at":"2019-09-06T04:43:25.262Z",
+    "due_date":"2019-09-07T00:00:00.000Z"},
+   {"id":85,
+    "name":"Sweet Potato",
+    "description":"1 gallon",
+    "completed":false,
+    "list_id":349,
+    "created_at":"2019-09-06T04:43:25.263Z",
+    "updated_at":"2019-09-06T04:43:25.263Z",
+    "due_date":"2019-09-24T00:00:00.000Z"}
+]
   ```
   ##### Unsuccessful Response
   A valid client and list ID must be provided otherwise a 404 status code (page not found) will be returned.
