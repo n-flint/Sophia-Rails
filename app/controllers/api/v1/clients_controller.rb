@@ -12,20 +12,16 @@ class Api::V1::ClientsController < ApplicationController
                                      :zip]
 
   def show
-    if Client.exists?(params[:id])
-      render json: ClientSerializer.new(Client.find(params[:id]))
-    else
-      render json: { message: "Not Found" }, status: 404
-    end
+    render json: ClientSerializer.new(Client.find(params[:id]))
+  rescue ActiveRecord::RecordNotFound
+    render json: { message: "Not Found" }, status: 404
   end
 
   def destroy
-    if Client.exists?(params['id'])
-      Client.find(params['id']).destroy
-      render json: {}, status: 204
-    else
-      render json: { message: "Invalid ID" }, status: 404
-    end
+    Client.find(params['id']).destroy
+    render json: {}, status: 204
+  rescue ActiveRecord::RecordNotFound
+    render json: { message: "Invalid ID" }, status: 404
   end
 
   def update

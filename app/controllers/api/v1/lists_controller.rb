@@ -11,23 +11,19 @@ class Api::V1::ListsController < ApplicationController
   end
 
   def index
-    if Client.exists?(params[:client_id])
-      client = Client.find(params[:client_id])
-      render json: client.lists
-    else
-      render json: { message: "Not Found" }, status: 404
-    end
+    client = Client.find(params[:client_id])
+    render json: client.lists
+  rescue ActiveRecord::RecordNotFound
+    render json: { message: "Not Found" }, status: 404
   end
 
   def update
-    if Client.exists?(params[:client_id]) && List.exists?(params[:id])
-      client = Client.find(params[:client_id])
-      list = client.lists.find(params[:id])
-      list.update_attributes({ name: params[:name] })
-      render json: list
-    else
-      render json: { message: "Not Found" }, status: 404
-    end
+    client = Client.find(params[:client_id])
+    list = client.lists.find(params[:id])
+    list.update_attributes({ name: params[:name] })
+    render json: list
+  rescue ActiveRecord::RecordNotFound
+    render json: { message: "Not Found" }, status: 404
   end
 
   private
