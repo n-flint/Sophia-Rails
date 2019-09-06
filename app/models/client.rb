@@ -14,4 +14,23 @@ class Client < ApplicationRecord
 
   has_many :lists
   has_secure_password
+
+  def custom_needs(params)
+    if params[:needs]
+      needs = params[:needs].join(', ')
+      update_attributes(needs: needs)
+    end
+    if params[:diet_restrictions]
+      diet_restrictions = params[:diet_restrictions].join(', ')
+      update_attributes(diet_restrictions: diet_restrictions)
+    end
+    if params[:medications]
+      medications = params[:medications].join(', ')
+      update_attributes(medications: medications)
+    end
+    if params[:allergies]
+      allergies = params[:allergies].join(', ')
+      update_attributes(allergies: allergies)
+    end
+  end
 end
