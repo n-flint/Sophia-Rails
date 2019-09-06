@@ -33,22 +33,7 @@ class Api::V1::ClientsController < ApplicationController
       client = Client.find(params['id'])
       client.update(client_params)
       client.save
-      if params[:needs]
-        needs = params[:needs].join(', ')
-        client.update_attributes(needs: needs)
-      end
-      if params[:diet_restrictions]
-        diet_restrictions = params[:diet_restrictions].join(', ')
-        client.update_attributes(diet_restrictions: diet_restrictions)
-      end
-      if params[:medications]
-        medications = params[:medications].join(', ')
-        client.update_attributes(medications: medications)
-      end
-      if params[:allergies]
-        allergies = params[:allergies].join(', ')
-        client.update_attributes(allergies: allergies)
-      end
+      client.custom_needs(params)
       render json: ClientSerializer.new(client), status: 200
     end
   end
@@ -79,6 +64,7 @@ class Api::V1::ClientsController < ApplicationController
                                    :street_address,
                                    :city,
                                    :state,
-                                   :zip)
+                                   :zip
+                                )
   end
 end
