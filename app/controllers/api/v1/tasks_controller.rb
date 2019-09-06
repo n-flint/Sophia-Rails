@@ -9,6 +9,14 @@ class Api::V1::TasksController < ApplicationController
     end
   end
 
+  def index
+    client = Client.find(params[:client_id])
+    list = client.lists.find(params[:list_id])
+    render json: list.tasks
+  rescue ActiveRecord::RecordNotFound
+    render json: { message: "Not Found" }, status: 404
+  end
+
   private
 
   def task_params
