@@ -11,6 +11,7 @@ RSpec.describe "Client API" do
     found_client = JSON.parse(response.body, symbolize_names: true)
 
     expect(found_client).to have_key(:username)
+    expect(found_client).to have_key(:id)
     expect(found_client).to have_key(:name)
     expect(found_client).to have_key(:street_address)
     expect(found_client).to have_key(:city)
