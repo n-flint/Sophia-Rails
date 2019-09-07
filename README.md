@@ -302,6 +302,13 @@ Send a PATCH request to update a clients list
   Accept: application/json
   ```
 
+  ##### Body:
+  ```json
+  {
+    "name": "updated name"
+  }
+  ```
+
   ##### Successful Response
   ```json
 
