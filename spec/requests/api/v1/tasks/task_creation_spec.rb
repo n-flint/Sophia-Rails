@@ -4,19 +4,20 @@ RSpec.describe 'Tasks API' do
   it 'can create a new task' do
     client = create(:client)
     list = List.create(name: 'list numero uno', client_id: "#{client.id}")
+
     task_params = {
-      list_id: "#{list.id}",
       description: 'first task description',
       name: 'task uno',
       completed: 'false',
       due_date: Date.tomorrow
     }.to_json
+
     headers = { 'CONTENT_TYPE' => 'application/json'}
 
     post "/api/v1/clients/#{client.id}/lists/#{list.id}/tasks", params: task_params, headers: headers
 
     data = JSON.parse(response.body)
-    task = Task.last
+    task = Task.find(data['id'])
 
     expect(data['name']).to eq('task uno')
     expect(data['description']).to eq('first task description')
@@ -26,6 +27,7 @@ RSpec.describe 'Tasks API' do
     expect(task.description).to eq('first task description')
     expect(task.name).to eq('task uno')
     expect(task.completed).to be false
+    expect(list.tasks).to include(task)
   end
 
     it 'recieves a 404 if list_id is invalid' do
