@@ -462,7 +462,7 @@ Send a DELTE request to delete a task
 ## Login
 Send a POST request to get user id from username and password
 
-#### patch /api/v1/login
+#### post /api/v1/login
 
 ##### Headers:
 ```
