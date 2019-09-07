@@ -63,10 +63,11 @@ This is a unique opportunity that presents some valuable goals:
   - [List Update](#list-update)
   - [List Deletion](#list-deletion)
 - Tasks
-  - [List Tasks Creation](#list-tasks-creation)
+  - [List Tasks Creation](#list-task-creation)
   - [List Tasks Index](#list-tasks-index)
   - [List Tasks Update](#list-tasks-update)
   - [List Tasks Deletion](#list-tasks-deletion)
+- [Login](#login)
 
 ## Client Creation
 Send a POST request to create a client
@@ -457,6 +458,55 @@ Send a DELTE request to delete a task
 
   ##### Unsuccessful Response
   A valid client, list, and task ID must be provided otherwise a 404 status code (page not found) will be returned.
+
+## Login
+Send a POST request to get user id from username and password
+
+#### post /api/v1/login
+
+##### Headers:
+```
+Content-Type: application/json
+Accept: application/json
+```
+
+##### Body:
+```
+{
+  username: "testClient",
+  password: "pass"
+}
+```
+
+##### Successful Response
+returns the user object who matches given username and password
+
+```json
+{
+  "id": "1",
+  "username": "testClient",
+  "name": "Katie",
+  "street_address": "123 Test St",
+  "city": "Denver",
+  "state": "CO",
+  "zip": "12345",
+  "email": "katierulz@gmail.com",
+  "phone_number": "1235551234",
+  "needs": ["groceries", "bills"],
+  "medications": ["drug_1", "drug_2"],
+  "diet_restrictions": ["vegetarian", "peanut-free"],
+  "created_at": "DateTime",
+  "updated_at": "DateTime"
+}
+```
+##### Unsuccessful Response
+##### Bad Username/Password:
+Returns 400 and body:
+```json
+  {
+    "message": "Invalid Username/Password"
+  }
+```
 
 ## Challenges
 
