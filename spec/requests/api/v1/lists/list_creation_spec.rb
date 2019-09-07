@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'List API' do
   it 'can create a list' do
     client = create(:client)
-    
+
     list_params = {
       :name => 'Groceries'
     }.to_json
