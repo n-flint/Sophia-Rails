@@ -41,6 +41,7 @@ RSpec.describe 'Clients API' do
     post '/api/v1/clients', params: @new_client, headers: headers
 
     data = JSON.parse(response.body)
+    client = Client.find(data['id'])
 
     expect(response.code).to eq('201')
     expect(data['username']).to eq('username1')
@@ -55,6 +56,8 @@ RSpec.describe 'Clients API' do
     expect(data['allergies']).to eq(['Pollen', 'Hard-Work'])
     expect(data['medications']).to eq(['Cannabis'])
     expect(data['diet_restrictions']).to eq(['vegetarian', 'peanut-free'])
+
+    expect(client.username).to eq('username1')
   end
 
   it 'recieves a 404 if username is not unique' do

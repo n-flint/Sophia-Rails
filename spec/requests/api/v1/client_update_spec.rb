@@ -55,7 +55,7 @@ RSpec.describe 'Clients API' do
     patch "/api/v1/clients/#{@current_client_1.id}", params: @updated_client, headers: headers
 
     data = JSON.parse(response.body)
-    updated_client = Client.first
+    updated_client = Client.find(data['id'])
 
     expect(data['username']).to eq('updated_user')
     expect(data['name']).to eq('name2')
