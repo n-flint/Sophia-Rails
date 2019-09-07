@@ -92,7 +92,7 @@ RSpec.describe "Task API update endpoint" do
     list = create(:list, client: client)
     task = create(:task, list: list)
 
-    new_date = Time.now + 10.hours
+    new_date = Time.now + 1.day
 
     updated_task_data = {
       due_date: new_date
