@@ -353,7 +353,7 @@ Send a POST request to create a list task
 {
     "name": "task one",
     "description": "description of the first task",
-    "due_date": "date_time"
+    "due_date": "2018-12-08"
 }
 
   ```
@@ -366,7 +366,7 @@ Send a POST request to create a list task
     "name": "task_uno",
     "description": "description of the first task",
     "completed": "false",
-    "due_date": "date_time"
+    "due_date": "2018-12-08"
   }
 
   ```
