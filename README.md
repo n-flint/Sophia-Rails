@@ -63,7 +63,8 @@ This is a unique opportunity that presents some valuable goals:
 - Factory Bot
 - Faker
 
-`docker-compose rub web rspec`
+1. `docker-compose up -d`
+2. `docker-compose rub web rspec`
 
 ---
 
