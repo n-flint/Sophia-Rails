@@ -26,6 +26,7 @@ SOPHIA is an A11Y app with a large focus on accessibility.
 ## Technologies Used
   - [Ruby](https://ruby-doc.org/)
   - [Ruby On Rails](https://guides.rubyonrails.org/)
+  - [Docker](https://docs.docker.com/)
   - [Travis CI](https://travis-ci.org)
 
 ## Learning Goals
@@ -47,9 +48,10 @@ This is a unique opportunity that presents some valuable goals:
 **This app is in a docker container**
 1. Clone this repository
 2. `docker-compose build`
-2. `docker-compose run web rake db:create`
-2. `docker-compose run web rake db:migrate`
-2. `docker-compose run web rake db:seed`
+3. `docker-compose run web rake db:create`
+4. `docker-compose run web rake db:migrate`
+5. `docker-compose run web rake db:seed`
+6. `docker-compose up`
 
 ### Testing
 1. Instructions for setting up rspec here
