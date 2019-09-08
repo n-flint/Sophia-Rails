@@ -24,10 +24,15 @@ Please reference the user stories to understand the full functionality of SOPHIA
 SOPHIA is an A11Y app with a large focus on accessibility.
 
 ## Technologies Used
-  - [Ruby](https://ruby-doc.org/)
   - [Ruby On Rails](https://guides.rubyonrails.org/)
   - [Docker](https://docs.docker.com/)
+  - [Factory Bot](https://github.com/thoughtbot/factory_bot)
   - [Travis CI](https://travis-ci.org)
+
+## Versioning
+
+- Ruby: 2.4.1
+- Rails: 5.2.3
 
 ## Learning Goals
 
@@ -45,16 +50,20 @@ This is a unique opportunity that presents some valuable goals:
 
 ## Setup
 
-**This app is in a docker container**
+**This app is [Dockerized](https://docs.docker.com/)**
+
 1. Clone this repository
 2. `docker-compose build`
-3. `docker-compose run web rake db:create`
-4. `docker-compose run web rake db:migrate`
-5. `docker-compose run web rake db:seed`
+3. `docker-compose run web rails db:{create,migrate,seed}`
 6. `docker-compose up`
 
 ### Testing
-1. Instructions for setting up rspec here
+- RSpec
+- Shoulda-Matchers
+- Factory Bot
+- Faker
+
+`docker-compose rub web rspec`
 
 ---
 
