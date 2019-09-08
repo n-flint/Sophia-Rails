@@ -1,7 +1,8 @@
 class ClientSerializer
-  def initialize(data)
+  def initialize(data, password=nil)
     @id = data.id
     @username = data.username
+    @password = password
     @name = data.name
     @street_address = data.street_address
     @city = data.city

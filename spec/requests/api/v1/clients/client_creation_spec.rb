@@ -46,6 +46,7 @@ RSpec.describe 'Clients API' do
     expect(response.code).to eq('201')
     expect(data['username']).to eq('username1')
     expect(data['name']).to eq('name1')
+    expect(data['password']).to eq('pass')
     expect(data['street_address']).to eq('123 Fake St.')
     expect(data['city']).to eq('Denver')
     expect(data['state']).to eq('CO')
