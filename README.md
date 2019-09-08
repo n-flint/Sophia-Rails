@@ -43,8 +43,13 @@ This is a unique opportunity that presents some valuable goals:
 * Focus on communication between front-end and back-end teams in order to complete and deploy features that have been outlined by the project spec
 
 ## Setup
+
+**This app is in a docker container**
 1. Clone this repository
-2. Further instructions to come
+2. `docker-compose build`
+2. `docker-compose run web rake db:create`
+2. `docker-compose run web rake db:migrate`
+2. `docker-compose run web rake db:seed`
 
 ### Testing
 1. Instructions for setting up rspec here
