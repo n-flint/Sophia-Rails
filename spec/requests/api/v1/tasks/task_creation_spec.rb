@@ -20,6 +20,7 @@ RSpec.describe 'Tasks API' do
     task = Task.find(data['id'])
 
     expect(data['name']).to eq('task uno')
+    expect(data['due_date']).to eq(Date.tomorrow.strftime("%m/%d"))
     expect(data['description']).to eq('first task description')
     expect(data['completed']).to eq(false)
     expect(data).to have_key('due_date')

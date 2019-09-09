@@ -27,6 +27,7 @@ RSpec.describe "Task API update endpoint" do
     expect(updated_task_data).to have_key(:description)
     expect(updated_task_data).to have_key(:completed)
     expect(updated_task_data).to have_key(:due_date)
+    expect(updated_task_data[:due_date]).to eq(Date.tomorrow.strftime("%m/%d"))
     expect(updated_task_data).to have_key(:list_id)
     expect(updated_task_data).to have_key(:created_at)
     expect(updated_task_data).to have_key(:updated_at)
