@@ -4,7 +4,7 @@ class Api::V1::TasksController < ApplicationController
   def create
     new_task = Task.new(task_params)
     if new_task.save
-      render json: new_task, status: 201
+      render json: TaskSerializer.new(new_task), status: 201
     else
       render json: new_task.errors, status: 404
     end
@@ -13,7 +13,7 @@ class Api::V1::TasksController < ApplicationController
   def index
     client = Client.find(params[:client_id])
     list = client.lists.find(params[:list_id])
-    render json: list.tasks
+    render json: list.tasks.map{|task| TaskSerializer.new(task)}
   rescue ActiveRecord::RecordNotFound
     render json: { message: "Not Found" }, status: 404
   end
@@ -23,7 +23,7 @@ class Api::V1::TasksController < ApplicationController
     list = client.lists.find(params[:list_id])
     task = list.tasks.find(params[:id])
     task.update_attributes(task_params)
-    render json: task
+    render json: TaskSerializer.new(task)
   rescue ActiveRecord::RecordNotFound
     render json: { message: "Not Found" }, status: 404
   end
