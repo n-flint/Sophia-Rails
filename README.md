@@ -349,13 +349,13 @@ Send a POST request to create a list task
   Accept: application/json
   ```
   #### Body:
+  *Due date is optional*
   ```json
 {
     "name": "task one",
     "description": "description of the first task",
     "due_date": "2018-12-08"
 }
-
   ```
 
   ##### Successful Response
