@@ -1,21 +1,27 @@
 class Api::V1::ClientsController < ApplicationController
   protect_from_forgery with: :null_session
+  wrap_parameters :client, include: [:username,
+                                     :password,
+                                     :password_confirmation,
+                                     :name,
+                                     :email,
+                                     :phone_number,
+                                     :street_address,
+                                     :city,
+                                     :state,
+                                     :zip]
 
   def show
-    if Client.exists?(params[:id])
-      render json: Client.find(params[:id])
-    else
-      render json: { message: "Not Found" }, status: 404
-    end
+    render json: ClientSerializer.new(Client.find(params[:id]))
+  rescue ActiveRecord::RecordNotFound
+    render json: { message: "Not Found" }, status: 404
   end
 
   def destroy
-    if Client.exists?(params['id'])
-      Client.find(params['id']).destroy
-      render json: {}, status: 204
-    else
-      render json: { message: "Invalid ID" }, status: 404
-    end
+    Client.find(params['id']).destroy
+    render json: {}, status: 204
+  rescue ActiveRecord::RecordNotFound
+    render json: { message: "Invalid ID" }, status: 404
   end
 
   def update
@@ -27,14 +33,20 @@ class Api::V1::ClientsController < ApplicationController
       client = Client.find(params['id'])
       client.update(client_params)
       client.save
-      render json: client, status: 200
+      client.custom_needs(params)
+      render json: ClientSerializer.new(client), status: 200
     end
   end
 
   def create
     new_client = Client.new(client_params)
+    needs = params[:needs].join(', ')
+    medications = params[:medications].join(', ')
+    allergies = params[:allergies].join(', ')
+    diet_restrictions = params[:diet_restrictions].join(', ')
+    new_client.update_attributes(diet_restrictions: diet_restrictions, needs: needs, medications: medications, allergies: allergies)
     if new_client.save
-      render json: new_client, status: 201
+      render json: ClientSerializer.new(new_client, params[:password]), status: 201
     else
       render json: new_client.errors, status: 400
     end
@@ -43,6 +55,16 @@ class Api::V1::ClientsController < ApplicationController
   private
 
   def client_params
-    params.require(:client).permit(:username, :name, :email, :phone_number, :street_address, :city, :state, :zip, :needs, :allergies, :medications)
+    params.require(:client).permit(:username,
+                                   :password,
+                                   :password_confirmation,
+                                   :name,
+                                   :email,
+                                   :phone_number,
+                                   :street_address,
+                                   :city,
+                                   :state,
+                                   :zip
+                                )
   end
 end

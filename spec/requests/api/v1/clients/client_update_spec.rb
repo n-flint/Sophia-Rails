@@ -5,6 +5,7 @@ RSpec.describe 'Clients API' do
     @current_client_1 = Client.create({
                 "username": "existing_user_1",
                 "name": "name1",
+                "password": "password",
                 "street_address": "123 Fake St.",
                 "city": "Denver",
                 "state": "CO",
@@ -18,6 +19,7 @@ RSpec.describe 'Clients API' do
 
     @current_client_2 = Client.create({
                 "username": "existing_user_2",
+                "password": "password",
                 "name": "name2",
                 "street_address": "456 Fake St.",
                 "city": "Denver",
@@ -33,15 +35,18 @@ RSpec.describe 'Clients API' do
     @updated_client = {
                 "username": "updated_user",
                 "name": "name2",
+                "password": "password",
+                "password_confirmation": "password",
                 "street_address": "123 New St.",
                 "city": "UpdatedDenver",
                 "state": "CO",
                 "zip": "updated80203",
                 "email": "Updatedexample@email.com",
                 "phone_number": "new246342176",
-                "needs": "Updated,Grocery, Bills",
-                "allergies": "Updated, Pollen, Hard-Work",
-                "medications": "UpdatedCannabis"
+                "needs": ["Updated", "Grocery", "Bills"],
+                "allergies": ["Updated", "Pollen", "Hard-Work"],
+                "medications": ["Updated", "Cannabis"],
+                "diet_restrictions": ["Updated", "Cannabis"]
     }.to_json
   end
 
@@ -50,7 +55,7 @@ RSpec.describe 'Clients API' do
     patch "/api/v1/clients/#{@current_client_1.id}", params: @updated_client, headers: headers
 
     data = JSON.parse(response.body)
-    updated_client = Client.first
+    updated_client = Client.find(data['id'])
 
     expect(data['username']).to eq('updated_user')
     expect(data['name']).to eq('name2')
@@ -58,11 +63,13 @@ RSpec.describe 'Clients API' do
     expect(data['city']).to eq('UpdatedDenver')
     expect(data['state']).to eq('CO')
     expect(data['zip']).to eq('updated80203')
-    expect(data['needs']).to eq('Updated,Grocery, Bills')
-    expect(data['allergies']).to eq('Updated, Pollen, Hard-Work')
-    expect(data['medications']).to eq('UpdatedCannabis')
+    expect(data['needs']).to eq(['Updated', 'Grocery', 'Bills'])
+    expect(data['allergies']).to eq(['Updated', 'Pollen', 'Hard-Work'])
+    expect(data['medications']).to eq(['Updated', 'Cannabis'])
+    expect(data['diet_restrictions']).to eq(['Updated', 'Cannabis'])
 
     expect(updated_client.username).to eq('updated_user')
+    expect(updated_client.diet_restrictions).to eq('Updated, Cannabis')
   end
 
   it 'receives a 404 if updated username is not unique' do

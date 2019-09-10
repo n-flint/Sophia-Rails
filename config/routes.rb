@@ -3,9 +3,13 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       post '/speech', to: 'speech#index'
+      post '/login', to: 'login#create'
       resources :clients, only: [:show, :update, :create, :destroy] do
-        resources :lists, only: [:create]
+        resources :lists, only: [:create, :index, :update, :destroy] do
+          resources :tasks, only: [:create, :index, :update, :destroy]
+        end
       end
+      resources :caretakers, only: [:create]
     end
   end
 end

@@ -11,6 +11,7 @@ RSpec.describe "Client API" do
     found_client = JSON.parse(response.body, symbolize_names: true)
 
     expect(found_client).to have_key(:username)
+    expect(found_client).to have_key(:id)
     expect(found_client).to have_key(:name)
     expect(found_client).to have_key(:street_address)
     expect(found_client).to have_key(:city)
@@ -21,8 +22,12 @@ RSpec.describe "Client API" do
     expect(found_client).to have_key(:needs)
     expect(found_client).to have_key(:allergies)
     expect(found_client).to have_key(:medications)
+    expect(found_client).to have_key(:diet_restrictions)
     expect(found_client).to have_key(:created_at)
     expect(found_client).to have_key(:updated_at)
+    expect(found_client[:needs]).to be_a Array
+    expect(found_client[:medications]).to be_a Array
+    expect(found_client[:allergies]).to be_a Array
   end
 
   it "returns 404 with non existing id" do
