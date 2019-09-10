@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_10_023749) do
+ActiveRecord::Schema.define(version: 2019_09_10_155316) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,8 @@ ActiveRecord::Schema.define(version: 2019_09_10_023749) do
     t.bigint "client_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "caretaker_id"
+    t.index ["caretaker_id"], name: "index_lists_on_caretaker_id"
     t.index ["client_id"], name: "index_lists_on_client_id"
   end
 
@@ -64,6 +66,7 @@ ActiveRecord::Schema.define(version: 2019_09_10_023749) do
     t.index ["list_id"], name: "index_tasks_on_list_id"
   end
 
+  add_foreign_key "lists", "caretakers"
   add_foreign_key "lists", "clients"
   add_foreign_key "tasks", "lists"
 end
