@@ -85,7 +85,7 @@ RSpec.describe 'Clients API' do
     data = JSON.parse(response.body)
 
     expect(response.code).to eq('400')
-    # require 'pry'; binding.pry
+    
     expect(data['username']).to eq(['has already been taken'])
   end
 
