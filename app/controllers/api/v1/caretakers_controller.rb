@@ -9,6 +9,11 @@ class Api::V1::CaretakersController < ApplicationController
     end
   end
 
+  def update
+    caretaker = Caretaker.find(params['id'])
+    caretaker.update(caretaker_params)
+    render json: caretaker, status: 200
+  end
 
   private
 
