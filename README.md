@@ -26,7 +26,7 @@ SOPHIA is an A11Y app with a large focus on accessibility.
 ## Technologies Used
   - [Ruby](https://ruby-doc.org/)
   - [Ruby On Rails](https://guides.rubyonrails.org/)
-  - [Travis CI](https://travis-ci.org)
+  - [Travis CI](https://travis-ci.org) [![Build Status](https://travis-ci.org/n-flint/Sophia-Rails.svg?branch=master)](https://travis-ci.org/n-flint/Sophia-Rails)
 
 ## Learning Goals
 

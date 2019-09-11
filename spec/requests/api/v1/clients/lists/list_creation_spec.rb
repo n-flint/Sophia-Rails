@@ -1,16 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe 'List API' do
-  it 'can create a list' do
+  it 'client can create a list' do
     client = create(:client)
     caretaker = create(:caretaker)
 
     list_params = {
       :name => 'Groceries',
-      :caretaker_id => caretaker.id
+      :caretaker_id => caretaker.id,
+      :client_id => client.id
     }.to_json
 
+
     headers = { 'CONTENT_TYPE' => 'application/json'}
+
     post "/api/v1/clients/#{client.id}/lists", params: list_params, headers: headers
 
     new_list = JSON.parse(response.body)
