@@ -23,6 +23,13 @@ class Api::V1::CaretakersController < ApplicationController
     end
   end
 
+  def destroy
+    Caretaker.find(params['id']).destroy
+    render json: {}, status: 204
+  rescue ActiveRecord::RecordNotFound
+    render json: { message: 'Invalid ID'}, status: 404
+  end
+
   private
 
   def caretaker_params
