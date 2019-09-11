@@ -1,5 +1,10 @@
 class Api::V1::CaretakersController < ApplicationController
 
+  def index
+    caretakers = Caretaker.all
+    render json: caretakers, status: 200
+  end
+
   def create
     new_caretaker = Caretaker.new(caretaker_params)
     if new_caretaker.save
