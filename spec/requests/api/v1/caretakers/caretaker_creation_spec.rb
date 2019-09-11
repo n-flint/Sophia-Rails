@@ -38,6 +38,7 @@ RSpec.describe 'Caretakers API' do
     post '/api/v1/caretakers', params: @new_caretaker.to_json, headers: @headers
 
     data = JSON.parse(response.body)
+    caretaker = Caretaker.find(data['id'])
 
     expect(data['username']).to eq('caretaker_1')
     expect(data['name']).to eq('caretaker_uno')
@@ -45,6 +46,8 @@ RSpec.describe 'Caretakers API' do
     expect(data['phone_number']).to eq('1234567891')
     expect(data['abilities']).to eq('ability_1')
     expect(data['role']).to eq('caretaker')
+
+    expect(caretaker.role).to eq('caretaker')
   end
 
   it 'recieves a 400 if username is not unique' do

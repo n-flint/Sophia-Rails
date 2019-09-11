@@ -62,6 +62,7 @@ RSpec.describe 'Clients API' do
     expect(data['diet_restrictions']).to eq(['vegetarian', 'peanut-free'])
 
     expect(client.username).to eq('username1')
+    expect(client.role).to eq('client')
   end
 
   it 'recieves a 404 if username is not unique' do
