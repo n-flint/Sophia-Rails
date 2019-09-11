@@ -20,7 +20,7 @@ RSpec.describe 'Caretakers API' do
       'name': 'caretaker_dos',
       'email': 'kate2@email.com',
       'phone_number': '1234567891',
-      'abilities': 'ability_2, ability_2',
+      'abilities': 'ability_1, ability_2',
       'role': 'caretaker'
     })
   end
