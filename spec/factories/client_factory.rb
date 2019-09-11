@@ -10,6 +10,7 @@ FactoryBot.define do
     email { Faker::Internet.email }
     phone_number { Faker::PhoneNumber.phone_number }
     needs { 'Grocery, Bills' }
+    role { 'client' }
     allergies { 'Pollen, Ibuprofen' }
     medications { 'test_drug1, test_drug2' }
     diet_restrictions { 'vegetarian, peanut-free' }

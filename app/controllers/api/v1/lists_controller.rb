@@ -36,7 +36,7 @@ class Api::V1::ListsController < ApplicationController
   private
 
   def list_params
-    list_params = params.require(:list).permit(:name)
+    list_params = params.require(:list).permit(:name, :caretaker_id)
     list_params['client_id'] = params['client_id']
     list_params
   end

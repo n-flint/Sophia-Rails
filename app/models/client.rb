@@ -11,7 +11,6 @@ class Client < ApplicationRecord
                         :zip,
                         :phone_number
 
-
   has_many :lists, dependent: :destroy
   has_secure_password
 
