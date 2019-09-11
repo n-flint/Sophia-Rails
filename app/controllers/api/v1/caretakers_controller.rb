@@ -1,4 +1,5 @@
 class Api::V1::CaretakersController < ApplicationController
+  protect_from_forgery with: :null_session
 
   def index
     caretakers = Caretaker.all
