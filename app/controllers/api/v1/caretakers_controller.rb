@@ -49,6 +49,6 @@ class Api::V1::CaretakersController < ApplicationController
 
   def caretaker_params
     # is this still secure when I am not using the require method?
-    params.permit(:username, :password, :password_confirmation, :name, :email, :phone_number, :abilities)
+    params.permit(:role, :username, :password, :password_confirmation, :name, :email, :phone_number, :abilities)
   end
 end

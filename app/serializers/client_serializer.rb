@@ -14,6 +14,7 @@ class ClientSerializer
     @allergies = data.allergies.split(', ') if data.allergies
     @medications = data.medications.split(', ') if data.medications
     @diet_restrictions = data.diet_restrictions.split(', ') if data.diet_restrictions
+    @role = data.role
     @created_at = data.created_at
     @updated_at = data.updated_at
   end

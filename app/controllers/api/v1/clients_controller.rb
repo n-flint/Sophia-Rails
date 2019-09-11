@@ -9,7 +9,8 @@ class Api::V1::ClientsController < ApplicationController
                                      :street_address,
                                      :city,
                                      :state,
-                                     :zip]
+                                     :zip,
+                                     :role]
 
   def show
     render json: ClientSerializer.new(Client.find(params[:id]))
@@ -64,7 +65,8 @@ class Api::V1::ClientsController < ApplicationController
                                    :street_address,
                                    :city,
                                    :state,
-                                   :zip
+                                   :zip,
+                                   :role
                                 )
   end
 end
