@@ -62,6 +62,7 @@ This is a unique opportunity that presents some valuable goals:
   - [Caretaker Update](#caretaker-update)
   - [Caretaker Deletion](#caretaker-deletion)
   - [All Caretakers](#all-caretakers)
+  - [Caretaker Profile](#caretaker-profile)
 - Lists
   - [List Creation](#list-creation)
   - [List Index](#list-index)
@@ -383,6 +384,27 @@ Send a PATCH request to update a caretaker
       "updated_at": "2019-09-04T22:14:25.439Z"
   }
   ```
+
+## Caretaker Profile
+  Send a GET request to receive all information related to a single caretaker
+
+  #### GET /api/v1/caretakers/:id
+
+  ##### Successful Response
+  ```json
+  {
+    "id": "1",
+    "username": "katierulz",
+    "name": "Katie",
+    "email": "katierulz@gmail.com",
+    "phone_number": "1235551234",
+    "abilities": "ability_1",
+    "created_at": "DateTime",
+    "updated_at": "DateTime"
+  }
+  ```
+  ##### Unsuccessful Response
+  A valid caretaker ID must be provided otherwise a 404 status code (page not found) will be returned.
 
 ## List Creation
 Send a POST request to create a list for a client
