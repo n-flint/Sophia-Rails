@@ -12,7 +12,7 @@ RSpec.describe 'Caretakers API' do
       'abilities': 'ability_1'
     })
 
-    @client_1 = Client.create!({
+    @client_1 = Client.create({
                 "username": "existing_user",
                 "password": "pass",
                 "name": "name1",
@@ -37,12 +37,9 @@ RSpec.describe 'Caretakers API' do
 
     data = JSON.parse(response.body)
 
-    require 'pry'; binding.pry
 
-
-
-    # expect(@caretaker_1.lists.count).to eq(2)
-    # expect(@caretaker_1.lists[0].name).to eq('list name 1')
-    # expect(@caretaker_1.lists[1].name).to eq('list name 2')
+    expect(@caretaker_1.lists.count).to eq(2)
+    expect(@caretaker_1.lists[0].name).to eq('list name 1')
+    expect(@caretaker_1.lists[1].name).to eq('list name 2')
   end 
 end
