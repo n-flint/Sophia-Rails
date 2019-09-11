@@ -22,7 +22,7 @@ RSpec.describe 'Caretakers API' do
       'abilities': 'ability_2'
     })
   end
-  it 'can return a list of all the clientxs' do
+  it 'can return a list of all the caretakers' do
     get '/api/v1/caretakers'
 
     data = JSON.parse(response.body)
