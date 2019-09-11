@@ -9,6 +9,15 @@ class Api::V1::CaretakersController < ApplicationController
     end
   end
 
+  def show
+    if Caretaker.exists?(id: params['id'])
+      caretaker = Caretaker.find(params['id'])
+      render json: caretaker, status: 200
+    else
+      render json: { message: 'Invalid ID'}, status: 404
+    end
+  end
+
   def update
     if Caretaker.exists?(username: caretaker_params['username'])
       render json: { message: "Username Must Be Unique" }, status: 404
