@@ -14,7 +14,7 @@ RSpec.describe "Caretaker API Login" do
       accept: 'application/json'
     }
 
-    post "/api/v1/login", body: body, headers: header
+    post "/api/v1/login", params: body, headers: headers
 
     expect(response).to be_successful
     expect(status).to eq(200)
