@@ -58,7 +58,11 @@ This is a unique opportunity that presents some valuable goals:
   - [Client Deletion](#client-deletion)
   - [Client Update](#client-update)
 - Caretakers
+
+  - [Caretaker Creation](#caretaker-creation)
+  - [Caretaker Update](#caretaker-update)
   - [Caretaker Deletion](#caretaker-deletion)
+
 - Lists
   - [List Creation](#list-creation)
   - [List Index](#list-index)
@@ -229,6 +233,116 @@ Send a GET request to receive all information related to a single client
   ```
   ##### Unsuccessful Response
   A valid client ID must be provided otherwise a 404 status code (page not found) will be returned.
+
+## Caretaker Creation
+Send a POST request to create a caretaker
+
+  #### POST /api/v1/caretakers/:id
+
+  ##### headers:
+  ```
+  Content-Type: application/json
+  Accept: application/json
+  ```
+
+#### body:
+ *MUST have password AND password confirmation and they must match*
+```json
+{
+    "username": "string-required",
+    "name": "string-required",
+    "password": "password",
+    "password_confirmation": "password",
+    "email": "string-required",
+    "phone_number": "string-required",
+    "abilities": "ability_1
+}
+```
+
+  ##### Successful Response
+  ```json
+  {
+    "id": "1",
+    "username": "katierulz",
+    "name": "Katie",
+    "email": "katierulz@gmail.com",
+    "phone_number": "1235551234",
+    "abilities": "ability_1",
+    "created_at": "DateTime",
+    "updated_at": "DateTime"
+  }
+  ```
+  #### Unsuccessful Responses:
+  ##### Username Taken:
+  ```json
+  {
+    "message": ["Username has been taken"]
+  }
+  ```
+
+  ##### Email Taken:
+  ```json
+  {
+    "message": ["Email has been taken"]
+  }
+  ```
+
+  ##### Unmatching Password:
+  ```json
+  {
+    "password_confirmation": ["does not match password"]
+  }
+  ```
+
+## Caretaker Update
+Send a PATCH request to update a caretaker
+
+  #### PATCH /api/v1/caretakers/:id
+
+  ##### headers:
+  ```
+  Content-Type: application/json
+  Accept: application/json
+  ```
+
+#### body:
+```json
+{
+    "username": "updated_username",
+    "name": "update_name",
+    "email": "updated_email@email.com",
+    "phone_number": "updated_number",
+    "abilities": "updated_ability_1
+}
+```
+
+  ##### Successful Response
+  ```json
+  {
+    "id": "1",
+    "username": "updated_username",
+    "name": "update_name",
+    "email": "updated_email@email.com",
+    "phone_number": "updated_number",
+    "abilities": "updated_ability_1",
+    "created_at": "DateTime",
+    "updated_at": "DateTime"
+  }
+  ```
+  #### Unsuccessful Responses:
+  ##### Username Taken:
+  ```json
+  {
+    "message": ["Username has been taken"]
+  }
+  ```
+
+  ##### Email Taken:
+  ```json
+  {
+    "message": ["Email has been taken"]
+  }
+  ```
 
 ## Caretaker Deletion
   Send a DELETE request to delete a caretaker
