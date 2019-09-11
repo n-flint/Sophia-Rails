@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2019_09_11_021927) do
     t.string "abilities"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "type"
+    t.string "role"
   end
 
   create_table "clients", force: :cascade do |t|
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2019_09_11_021927) do
     t.datetime "updated_at", null: false
     t.string "diet_restrictions"
     t.string "password_digest"
-    t.string "type"
+    t.string "role"
     t.index ["username"], name: "index_clients_on_username"
   end
 

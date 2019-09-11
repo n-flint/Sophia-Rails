@@ -1,5 +1,5 @@
 class AddTypeToCaretakers < ActiveRecord::Migration[5.2]
   def change
-    add_column :caretakers, :type, :string
+    add_column :caretakers, :role, :string
   end
 end
