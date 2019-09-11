@@ -3,9 +3,11 @@ require 'rails_helper'
 RSpec.describe 'List API' do
   it 'can create a list' do
     client = create(:client)
+    caretaker = create(:caretaker)
 
     list_params = {
-      :name => 'Groceries'
+      :name => 'Groceries',
+      :caretaker_id => caretaker.id
     }.to_json
 
     headers = { 'CONTENT_TYPE' => 'application/json'}
@@ -19,11 +21,13 @@ RSpec.describe 'List API' do
     expect(new_list).to have_key('id')
     expect(new_list['name']).to eq('Groceries')
     expect(new_list['client_id']).to eq(client.id)
+    expect(new_list['caretaker_id']).to eq(caretaker.id)
   end
 
   it 'recieves a 404 if client_id is invalid' do
     list_params = {
-      :name => 'Groceries'
+      :name => 'Groceries',
+      :caretaker_id => 1
     }.to_json
 
     headers = { 'CONTENT_TYPE' => 'application/json'}

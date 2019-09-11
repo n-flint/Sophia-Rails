@@ -12,10 +12,10 @@ RSpec.describe "List API index endpoint" do
     expect(response).to be_successful
 
     lists = JSON.parse(response.body, symbolize_names: true)
-
     expect(lists.length).to eq(3)
     expect(lists.first).to have_key(:name)
     expect(lists.first).to have_key(:client_id)
+    expect(lists.first).to have_key(:caretaker_id)
     expect(lists.first).to have_key(:created_at)
     expect(lists.first).to have_key(:updated_at)
   end
