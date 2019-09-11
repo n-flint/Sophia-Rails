@@ -9,6 +9,26 @@ class Api::V1::CaretakersController < ApplicationController
     end
   end
 
+  def update
+    if Caretaker.exists?(username: caretaker_params['username'])
+      render json: { message: "Username Must Be Unique" }, status: 404
+    elsif Caretaker.exists?(email: caretaker_params['email'])
+      render json: { message: "Email Must Be Unique" }, status: 404
+    elsif Caretaker.exists?(id: params['id'])
+      caretaker = Caretaker.find(params['id'])
+      caretaker.update(caretaker_params)
+      render json: caretaker, status: 200
+    else
+      render json: { message: "Invalid ID" }, status: 404
+    end
+  end
+
+  def destroy
+    Caretaker.find(params['id']).destroy
+    render json: {}, status: 204
+  rescue ActiveRecord::RecordNotFound
+    render json: { message: 'Invalid ID'}, status: 404
+  end
 
   private
 
