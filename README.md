@@ -57,6 +57,8 @@ This is a unique opportunity that presents some valuable goals:
   - [Client Creation](#client-creation)
   - [Client Deletion](#client-deletion)
   - [Client Update](#client-update)
+- Caretakers
+  - [Caretaker Deletion](#caretaker-deletion)
 - Lists
   - [List Creation](#list-creation)
   - [List Index](#list-index)
@@ -227,6 +229,18 @@ Send a GET request to receive all information related to a single client
   ```
   ##### Unsuccessful Response
   A valid client ID must be provided otherwise a 404 status code (page not found) will be returned.
+
+## Caretaker Deletion
+  Send a DELETE request to delete a caretaker
+
+  #### DELETE /api/v1/caretakers/:id
+
+  ##### Successful Response:
+
+  will return a 204 status code with no body
+
+  ##### Unsuccessful Response
+  A valid caretaker ID must be provided otherwise a 404 status code (page not found) will be returned.
 
 ## List Creation
 Send a POST request to create a list for a client
