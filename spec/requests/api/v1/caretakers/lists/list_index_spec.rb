@@ -41,5 +41,16 @@ RSpec.describe 'Caretakers API' do
     expect(@caretaker_1.lists.count).to eq(2)
     expect(@caretaker_1.lists[0].name).to eq('list name 1')
     expect(@caretaker_1.lists[1].name).to eq('list name 2')
+
+    
   end 
+  it "returns 404 if caretaker does not exist" do
+    get "/api/v1/caretakers/7873/lists"
+
+    expect(status).to eq(404)
+
+    error = JSON.parse(response.body, symbolize_names: true)
+
+    expect(error[:message]).to eq("Not Found")
+  end
 end
