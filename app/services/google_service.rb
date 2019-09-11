@@ -1,12 +1,9 @@
 class GoogleService
-  def speech_to_text(audio_path)
+  def speech_to_text(audio_path, hertz=22050)
     speech = Google::Cloud::Speech.new
 
-    if ENV['RAILS_ENV'] = 'test'
-      sample_rate_hertz = 44100
-    else
-      sample_rate_hertz = 22050
-    end
+    sample_rate_hertz = hertz
+
 
     audio_file = File.binread audio_path
     config     = { encoding: :FLAC,
