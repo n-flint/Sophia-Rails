@@ -7,7 +7,7 @@ RSpec.describe 'Caretakers API' do
       'name': 'updated_caretaker_uno',
       'email': 'updated_kate@email.com',
       'phone_number': 'updated_1234567891',
-      'abilities': 'updated_ability_1'
+      'abilities': ['updated_ability_1']
     }
 
     @caretaker_1 = Caretaker.create({
@@ -46,7 +46,7 @@ RSpec.describe 'Caretakers API' do
     expect(data['name']).to eq('updated_caretaker_uno')
     expect(data['email']).to eq('updated_kate@email.com')
     expect(data['phone_number']).to eq('updated_1234567891')
-    expect(data['abilities']).to eq('updated_ability_1')
+    expect(data['abilities']).to eq(['updated_ability_1'])
     expect(data['role']).to eq('caretaker')
   end
 

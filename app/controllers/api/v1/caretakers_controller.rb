@@ -3,13 +3,17 @@ class Api::V1::CaretakersController < ApplicationController
 
   def index
     caretakers = Caretaker.all
-    render json: caretakers, status: 200
+    render json: caretakers.map{|caretaker| CaretakerSerializer.new(caretaker)}, status: 200
   end
 
   def create
     new_caretaker = Caretaker.new(caretaker_params)
+    if params[:abilities]
+      abilities = params[:abilities].join(', ')
+      new_caretaker.update(abilities: abilities)
+    end
     if new_caretaker.save
-      render json: new_caretaker, status: 201
+      render json: CaretakerSerializer.new(new_caretaker, params[:password]), status: 201
     else
       render json: new_caretaker.errors, status: 400
     end
@@ -18,7 +22,7 @@ class Api::V1::CaretakersController < ApplicationController
   def show
     if Caretaker.exists?(id: params['id'])
       caretaker = Caretaker.find(params['id'])
-      render json: caretaker, status: 200
+      render json: CaretakerSerializer.new(caretaker), status: 200
     else
       render json: { message: 'Invalid ID'}, status: 404
     end
@@ -31,8 +35,10 @@ class Api::V1::CaretakersController < ApplicationController
       render json: { message: "Email Must Be Unique" }, status: 404
     elsif Caretaker.exists?(id: params['id'])
       caretaker = Caretaker.find(params['id'])
+      abilities = params[:abilities].join(', ')
       caretaker.update(caretaker_params)
-      render json: caretaker, status: 200
+      caretaker.update(abilities: abilities)
+      render json: CaretakerSerializer.new(caretaker), status: 200
     else
       render json: { message: "Invalid ID" }, status: 404
     end
@@ -48,7 +54,6 @@ class Api::V1::CaretakersController < ApplicationController
   private
 
   def caretaker_params
-    # is this still secure when I am not using the require method?
-    params.permit(:role, :username, :password, :password_confirmation, :name, :email, :phone_number, :abilities)
+    params.permit(:role, :username, :password, :password_confirmation, :name, :email, :phone_number)
   end
 end
