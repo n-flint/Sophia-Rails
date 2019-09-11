@@ -103,7 +103,8 @@ Send a POST request to create a client
     "needs": ["array"],
     "allergies": ["array"],
     "medications": ["array"],
-    "diet_restrictions": ["array"]
+    "diet_restrictions": ["array"],
+    "role": "client"
 }
 ```
 
@@ -123,6 +124,7 @@ Send a POST request to create a client
     "allergies": ["pollen", "peanuts"],
     "medications": ["drug_1", "drug_2"],
     "diet_restrictions": ["vegetarian", "peanut-free"],
+    "role": "client",
     "created_at": "DateTime",
     "updated_at": "DateTime"
   }
@@ -227,6 +229,7 @@ Send a GET request to receive all information related to a single client
     "needs": ["groceries", "bills"],
     "medications": ["drug_1", "drug_2"],
     "diet_restrictions": ["vegetarian", "peanut-free"],
+    "role": "client",
     "created_at": "DateTime",
     "updated_at": "DateTime"
   }
@@ -247,17 +250,18 @@ Send a POST request to create a caretaker
 
 #### body:
  *MUST have password AND password confirmation and they must match*
-```json
-{
-    "username": "string-required",
-    "name": "string-required",
-    "password": "password",
-    "password_confirmation": "password",
-    "email": "string-required",
-    "phone_number": "string-required",
-    "abilities": "ability_1
-}
-```
+  ```json
+  {
+      "username": "string-required",
+      "name": "string-required",
+      "password": "password",
+      "password_confirmation": "password",
+      "email": "string-required",
+      "phone_number": "string-required",
+      "abilities": "ability_1",
+      "role": "caretaker"
+  }
+  ```
 
   ##### Successful Response
   ```json
@@ -268,6 +272,7 @@ Send a POST request to create a caretaker
     "email": "katierulz@gmail.com",
     "phone_number": "1235551234",
     "abilities": "ability_1",
+    "role": "caretaker",
     "created_at": "DateTime",
     "updated_at": "DateTime"
   }
@@ -312,7 +317,7 @@ Send a PATCH request to update a caretaker
     "name": "update_name",
     "email": "updated_email@email.com",
     "phone_number": "updated_number",
-    "abilities": "updated_ability_1
+    "abilities": "updated_ability_1"
 }
 ```
 
@@ -369,7 +374,8 @@ Send a PATCH request to update a caretaker
       "name": "caretaker_uno",
       "email": "kate1@email.com",
       "phone_number": "1234567891",
-      "abilities": "ability_1" 
+      "abilities": "ability_1",
+      "role": "caretaker",
       "created_at": "2019-09-04T22:14:25.439Z",
       "updated_at": "2019-09-04T22:14:25.439Z"
   },
@@ -379,7 +385,8 @@ Send a PATCH request to update a caretaker
       "name": "caretaker_dos",
       "email": "kate2@email.com",
       "phone_number": "1234567891",
-      "abilities": "ability_1" 
+      "abilities": "ability_1",
+      "role": "caretaker",
       "created_at": "2019-09-04T22:14:25.439Z",
       "updated_at": "2019-09-04T22:14:25.439Z"
   }
@@ -399,6 +406,7 @@ Send a PATCH request to update a caretaker
     "email": "katierulz@gmail.com",
     "phone_number": "1235551234",
     "abilities": "ability_1",
+    "role": "caretaker",
     "created_at": "DateTime",
     "updated_at": "DateTime"
   }
