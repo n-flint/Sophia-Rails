@@ -1,2 +1,2 @@
-git://github.com/heroku/heroku-buildpack-ruby.git
-https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git
+https://github.com/laddhadhiraj/heroku-buildpack-ffmpeg
+https://github.com/heroku/heroku-buildpack-ruby
