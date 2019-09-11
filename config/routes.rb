@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
       # caretaker lists
       get '/caretakers/:id/lists', to: 'caretakers/lists#index'
+      get '/caretakers/:id/lists/:list_id', to: 'caretakers/lists#show'
 
       # caretaker list tasks
       get '/caretakers/:id/lists/:list_id/tasks', to: 'caretakers/tasks#index'

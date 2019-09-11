@@ -63,12 +63,15 @@ This is a unique opportunity that presents some valuable goals:
   - [Caretaker Deletion](#caretaker-deletion)
   - [All Caretakers](#all-caretakers)
   - [Caretaker Profile](#caretaker-profile)
-- Lists
+- Caretaker Lists
+  - [Caretaker List Show](#caretaker-list-show)
+  - [Caretaker List Index](#caretaker-list-index)
+- Client Lists
   - [List Creation](#list-creation)
   - [List Index](#list-index)
   - [List Update](#list-update)
   - [List Deletion](#list-deletion)
-- Tasks
+- Client Tasks
   - [List Tasks Creation](#list-task-creation)
   - [List Tasks Index](#list-tasks-index)
   - [List Tasks Update](#list-tasks-update)
@@ -413,6 +416,57 @@ Send a PATCH request to update a caretaker
   ```
   ##### Unsuccessful Response
   A valid caretaker ID must be provided otherwise a 404 status code (page not found) will be returned.
+
+## Caretaker List Show
+Send a GET request to get a single list associated with a caretaker
+
+  #### get /api/v1/caretakers/:id/lists/:list_id/
+
+  ##### Successful Response
+  ```json
+  {
+      "id": 1,
+      "name": "groceries",
+      "client_id": 2,
+      "caretaker_id": 4,
+      "created_at": "2019-09-04T22:14:25.439Z",
+      "updated_at": "2019-09-04T22:14:25.439Z"
+  }
+  ```
+
+  ##### Unsuccessful Response
+  A valid caretaker and list ID must be provided otherwise a 404 status code (page not found) will be returned. 
+
+## Caretaker List Index
+Send a GET request to get all the lists associated with a caretaker
+
+  #### get /api/v1/caretakers/:id/lists/
+
+
+  ##### Successful Response
+  ```json
+  [
+    {
+      "id": 1,
+      "name": "groceries",
+      "client_id": 2,
+      "caretaker_id": 4,
+      "created_at": "2019-09-04T22:14:25.439Z",
+      "updated_at": "2019-09-04T22:14:25.439Z"
+    },
+    {
+      "id": 2,
+      "name": "bills",
+      "client_id": 2,
+      "caretaker_id": 4,
+      "created_at": "2019-09-04T22:14:25.439Z",
+      "updated_at": "2019-09-04T22:14:25.439Z"
+    }
+  ]
+  ```
+
+  ##### Unsuccessful Response
+  A valid caretaker ID must be provided otherwise a 404 status code (page not found) will be returned. 
 
 ## List Creation
 Send a POST request to create a list for a client
