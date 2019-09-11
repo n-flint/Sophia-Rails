@@ -9,7 +9,7 @@ RSpec.describe 'Caretakers API' do
       'name': 'caretaker_uno',
       'email': 'kate@email.com',
       'phone_number': '1234567891',
-      'abilities': 'ability_1',
+      'abilities': 'ability_1, ability_2',
       'role': 'caretaker'
     })
 
@@ -22,7 +22,7 @@ RSpec.describe 'Caretakers API' do
     expect(data['name']).to eq('caretaker_uno')
     expect(data['email']).to eq('kate@email.com')
     expect(data['phone_number']).to eq('1234567891')
-    expect(data['abilities']).to eq('ability_1')
+    expect(data['abilities']).to eq(['ability_1', 'ability_2'])
     expect(data['role']).to eq('caretaker')
   end
 
