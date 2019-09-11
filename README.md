@@ -58,11 +58,10 @@ This is a unique opportunity that presents some valuable goals:
   - [Client Deletion](#client-deletion)
   - [Client Update](#client-update)
 - Caretakers
-
   - [Caretaker Creation](#caretaker-creation)
   - [Caretaker Update](#caretaker-update)
   - [Caretaker Deletion](#caretaker-deletion)
-
+  - [All Caretakers](#all-caretakers)
 - Lists
   - [List Creation](#list-creation)
   - [List Index](#list-index)
@@ -355,6 +354,35 @@ Send a PATCH request to update a caretaker
 
   ##### Unsuccessful Response
   A valid caretaker ID must be provided otherwise a 404 status code (page not found) will be returned.
+
+## All Caretakers
+  Send a GET request to receive a list of all caretakers
+
+  #### GET /api/v1/caretakers
+
+  ##### Successful Response:
+   ```
+  {
+      "id": 1,
+      "username": "caretaker_1",
+      "name": "caretaker_uno",
+      "email": "kate1@email.com",
+      "phone_number": "1234567891",
+      "abilities": "ability_1" 
+      "created_at": "2019-09-04T22:14:25.439Z",
+      "updated_at": "2019-09-04T22:14:25.439Z"
+  },
+  {
+      "id": 2,
+      "username": "caretaker_2",
+      "name": "caretaker_dos",
+      "email": "kate2@email.com",
+      "phone_number": "1234567891",
+      "abilities": "ability_1" 
+      "created_at": "2019-09-04T22:14:25.439Z",
+      "updated_at": "2019-09-04T22:14:25.439Z"
+  }
+  ```
 
 ## List Creation
 Send a POST request to create a list for a client
