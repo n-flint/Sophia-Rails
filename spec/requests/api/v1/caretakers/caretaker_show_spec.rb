@@ -6,10 +6,11 @@ RSpec.describe 'Caretakers API' do
       'username': 'caretaker_1',
       'password': 'password',
       'password_confirmation': 'password',
-      'name': 'caretaker_uno', 
+      'name': 'caretaker_uno',
       'email': 'kate@email.com',
       'phone_number': '1234567891',
-      'abilities': 'ability_1'
+      'abilities': 'ability_1',
+      'role': 'caretaker'
     })
 
     get "/api/v1/caretakers/#{caretaker.id}"
@@ -22,6 +23,7 @@ RSpec.describe 'Caretakers API' do
     expect(data['email']).to eq('kate@email.com')
     expect(data['phone_number']).to eq('1234567891')
     expect(data['abilities']).to eq('ability_1')
+    expect(data['role']).to eq('caretaker')
   end
 
   it 'returns a 404 if a invalid ID is provided' do

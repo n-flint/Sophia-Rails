@@ -16,7 +16,8 @@ RSpec.describe 'Clients API' do
                 "needs": ["Grocery", "Bills"],
                 "allergies": ["Pollen", "Hard-Work"],
                 "medications": ["Cannabis"],
-                "diet_restrictions": ["vegetarian", "peanut-free"]
+                "diet_restrictions": ["vegetarian", "peanut-free"],
+                "role": 'client'
     }.to_json
 
     @current_client = Client.create!({
@@ -32,7 +33,8 @@ RSpec.describe 'Clients API' do
                 "needs": "Grocery, Bills",
                 "allergies": "Pollen, Hard-Work",
                 "medications": "Cannabis",
-                "diet_restrictions": "vegetarian, peanut-free"
+                "diet_restrictions": "vegetarian, peanut-free",
+                "role": "client"
     })
   end
 
@@ -51,6 +53,7 @@ RSpec.describe 'Clients API' do
     expect(data['city']).to eq('Denver')
     expect(data['state']).to eq('CO')
     expect(data['zip']).to eq('80203')
+    expect(data['role']).to eq('client')
     expect(data['email']).to eq('new@email.com')
     expect(data['phone_number']).to eq('246342176')
     expect(data['needs']).to eq(['Grocery', 'Bills'])
@@ -85,7 +88,7 @@ RSpec.describe 'Clients API' do
     data = JSON.parse(response.body)
 
     expect(response.code).to eq('400')
-    
+
     expect(data['username']).to eq(['has already been taken'])
   end
 

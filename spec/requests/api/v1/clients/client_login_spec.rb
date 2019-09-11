@@ -36,6 +36,7 @@ RSpec.describe "Client API Login" do
     expect(found_client).to have_key(:diet_restrictions)
     expect(found_client).to have_key(:created_at)
     expect(found_client).to have_key(:updated_at)
+    expect(found_client).to have_key(:role)
   end
 
   it "can give correct error if password is incorrect" do
