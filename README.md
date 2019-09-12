@@ -542,7 +542,7 @@ Send a PATCH request to update a caretaker
 
 ## Caretaker Lists
 
-## Caretaker List Show
+### Caretaker List Show
 Send a GET request to get a single list associated with a caretaker
 
   #### get /api/v1/caretakers/:id/lists/:list_id/
@@ -562,7 +562,7 @@ Send a GET request to get a single list associated with a caretaker
   ##### Unsuccessful Response
   A valid caretaker and list ID must be provided otherwise a 404 status code (page not found) will be returned. 
 
-## Caretaker List Index
+### Caretaker List Index
 Send a GET request to get all the lists associated with a caretaker
 
   #### get /api/v1/caretakers/:id/lists/
