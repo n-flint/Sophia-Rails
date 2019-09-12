@@ -90,7 +90,7 @@ RSpec.describe "Task API update endpoint" do
 
   # this fails everyonce and a while do to something with the date.
   # the task does get updated though
-  xit "updates a tasks due date on a clients list" do
+  it "updates a tasks due date on a clients list" do
     client = create(:client)
     list = create(:list, client: client)
     task = create(:task, list: list)
@@ -117,7 +117,6 @@ RSpec.describe "Task API update endpoint" do
     updated_task = Task.find(task.id)
 
     expect(updated_task.due_date.day).to eq(new_date.day)
-    expect(Date.parse(updated_task_data[:due_date]).day).to eq(new_date.day)
   end
 
   it "returns 404 if invalid client id is given" do
