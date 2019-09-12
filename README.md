@@ -686,8 +686,7 @@ Technicle Debt: This project has two types of users, a client and a caretaker. W
 Testing: During the course of developing this project, we were consitently able to maintain 97% to 100% test coverage.
 
 ## Extensions
-
-coming soon...
+We would eventually like to combine both the client and caretaker tables into one. 
 
 ## Developers
 
