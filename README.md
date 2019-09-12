@@ -9,11 +9,13 @@
 * [Learning Goals](#Learning-Goals)
 * [How To Use](#How-To-Use)
 * [Endpoints](#Endpoints)
+* [Database Schema](#Database-Schema)
 * [Challenges](#Challenges)
 * [Successes](#Successes)
 * [Extensions](#Extensions)
 * [Developers](#Developers)
 * [Frontend Repo](#Frontend-Repo)
+* [Production](#Production)
 
 ## Description
 
@@ -26,7 +28,9 @@ SOPHIA is an A11Y app with a large focus on accessibility.
 ## Technologies Used
   - [Ruby](https://ruby-doc.org/)
   - [Ruby On Rails](https://guides.rubyonrails.org/)
-  - [Travis CI](https://travis-ci.org) [![Build Status](https://travis-ci.org/n-flint/Sophia-Rails.svg?branch=master)](https://travis-ci.org/n-flint/Sophia-Rails)
+  - [PostgreSQL](https://www.postgresql.org/)
+  - [RSpec-Rails](https://github.com/rspec/rspec-rails)
+  - [Travis CI](https://travis-ci.org)  [![Build Status](https://travis-ci.org/n-flint/Sophia-Rails.svg?branch=master)](https://travis-ci.org/n-flint/Sophia-Rails)
 
 ## Learning Goals
 
@@ -44,43 +48,94 @@ This is a unique opportunity that presents some valuable goals:
 
 ## Setup
 1. Clone this repository
-2. Further instructions to come
+2. Run command `bundle`
+3. Run command `rails db:create`
+4. Run command `rails db:migrate`
+4. Run command `rails db:seed`
+4. Run command `rails start` to start a server
+
 
 ### Testing
-1. Instructions for setting up rspec here
+1. Add `gem rspec-rails`
+2. Run command `bundle`
+3. Run command `rails g rspec:install`
 
 ---
 
 ## Endpoints
-- Clients
+
+### Client Endpoints
+- [Single Client](#single-client)
   - [Client Profile](#client-profile)
   - [Client Creation](#client-creation)
-  - [Client Deletion](#client-deletion)
   - [Client Update](#client-update)
-- Caretakers
-  - [Caretaker Creation](#caretaker-creation)
-  - [Caretaker Update](#caretaker-update)
-  - [Caretaker Deletion](#caretaker-deletion)
-  - [All Caretakers](#all-caretakers)
-  - [Caretaker Profile](#caretaker-profile)
-- Caretaker Lists
-  - [Caretaker List Show](#caretaker-list-show)
-  - [Caretaker List Index](#caretaker-list-index)
-- Caretaker Tasks
-  - [Caretaker Task Update](#caretaker-task-update)
-- Client Lists
+  - [Client Deletion](#client-deletion)
+- [Client Lists](#client-lists)
   - [List Creation](#list-creation)
   - [List Index](#list-index)
   - [List Update](#list-update)
   - [List Deletion](#list-deletion)
-- Client Tasks
+- [Client Tasks](#client-tasks)
   - [List Tasks Creation](#list-task-creation)
   - [List Tasks Index](#list-tasks-index)
   - [List Tasks Update](#list-tasks-update)
   - [List Tasks Deletion](#list-tasks-deletion)
+
+### Caretaker Endpoints
+- [Single Caretaker](#single-caretaker)
+  - [Caretaker Profile](#caretaker-profile)
+  - [Caretaker Creation](#caretaker-creation)
+  - [Caretaker Update](#caretaker-update)
+  - [Caretaker Deletion](#caretaker-deletion)
+- [Caretaker Lists](#caretaker-lists)
+  - [Caretaker List Show](#caretaker-list-show)
+  - [Caretaker List Index](#caretaker-list-index)
+- [Caretaker Tasks](#caretaker-tasks)
+  - [Caretaker Task Update](#caretaker-task-update)
+### Login
 - [Login](#login)
 
-## Client Creation
+---
+
+# Client Endpoints
+
+## Single Client
+
+### Client Profile:
+Send a GET request to receive all information related to a single client
+
+  #### GET /api/v1/clients/:id
+   *if a client does not have diet_restrictions, needs, allergies, or medications, these attributes do not show. The client below has no 'allergies' associated*
+  ```
+  Content-Type: application/json
+  Accept: application/json
+  ```
+
+  ##### Successful Response
+  ```json
+  {
+    "id": "1",
+    "username": "katierulz",
+    "name": "Katie",
+    "street_address": "123 Test St",
+    "city": "Denver",
+    "state": "CO",
+    "zip": "12345",
+    "email": "katierulz@gmail.com",
+    "phone_number": "1235551234",
+    "needs": ["groceries", "bills"],
+    "medications": ["drug_1", "drug_2"],
+    "diet_restrictions": ["vegetarian", "peanut-free"],
+    "role": "client",
+    "created_at": "DateTime",
+    "updated_at": "DateTime"
+  }
+  ```
+  ##### Unsuccessful Response
+  A valid client ID must be provided otherwise a 404 status code (page not found) will be returned.
+
+
+### Client Creation:
 Send a POST request to create a client
 
   #### POST /api/v1/clients/
@@ -156,7 +211,7 @@ Send a POST request to create a client
   }
   ```
 
-## Client Update
+### Client Update
 Send a PATCH request to update a clients profile
 
   #### PATCH /api/v1/clients/:id
@@ -197,7 +252,7 @@ Send a PATCH request to update a clients profile
   ##### Unsuccessful Response
   A valid client ID must be provided otherwise a 404 status code (page not found) will be returned.
 
-## Client Deletion
+### Client Deletion
 Send a DELETE request to delete a client
 
   #### DELETE /api/v1/clients/:id
@@ -209,11 +264,50 @@ Send a DELETE request to delete a client
   ##### Unsuccessful Response
   A valid client ID must be provided otherwise a 404 status code (page not found) will be returned.
 
-## Client Profile
-Send a GET request to receive all information related to a single client
+## Client Tasks
 
-  #### GET /api/v1/clients/:id
-   *if a client does not have diet_restrictions, needs, allergies, or medications, these attributes do not show. The client below has no 'allergies' associated*
+
+### List Task Creation
+Send a POST request to create a list task
+
+  #### post /api/v1/clients/:client_id/lists/:list_id/tasks
+
+  ##### Headers:
+  ```
+  Content-Type: application/json
+  Accept: application/json
+  ```
+  #### Body:
+  *Due date is optional*
+  ```json
+{
+    "name": "task one",
+    "description": "description of the first task",
+    "due_date": "2018-12-08"
+}
+  ```
+
+  ##### Successful Response
+  ```json
+
+  {
+    "id": 1,
+    "name": "task_uno",
+    "description": "description of the first task",
+    "completed": "false",
+    "due_date": "2018-12-08"
+  }
+
+  ```
+  ##### Unsuccessful Response
+  A valid client and list ID must be provided otherwise a 404 status code (page not found) will be returned.
+
+### List Tasks Index
+Send a GET request to get all tasks associated with a clients list
+
+  #### get /api/v1/clients/:client_id/lists/:list_id/tasks
+
+  ##### Headers:
   ```
   Content-Type: application/json
   Accept: application/json
@@ -221,28 +315,108 @@ Send a GET request to receive all information related to a single client
 
   ##### Successful Response
   ```json
+[
+  {"id":83,
+    "name":"Coriander Seed",
+    "description":"3 gallon",
+    "completed":false,
+    "list_id":349,
+    "created_at":"2019-09-06T04:43:25.260Z",
+    "updated_at":"2019-09-06T04:43:25.260Z",
+    "due_date":"2019-09-17T00:00:00.000Z"},
+   {"id":84,
+    "name":"Mung Beans",
+    "description":"3 gallon",
+    "completed":false,
+    "list_id":349,
+    "created_at":"2019-09-06T04:43:25.262Z",
+    "updated_at":"2019-09-06T04:43:25.262Z",
+    "due_date":"2019-09-07T00:00:00.000Z"},
+   {"id":85,
+    "name":"Sweet Potato",
+    "description":"1 gallon",
+    "completed":false,
+    "list_id":349,
+    "created_at":"2019-09-06T04:43:25.263Z",
+    "updated_at":"2019-09-06T04:43:25.263Z",
+    "due_date":"2019-09-24T00:00:00.000Z"}
+]
+  ```
+  ##### Unsuccessful Response
+  A valid client and list ID must be provided otherwise a 404 status code (page not found) will be returned.
+
+### List Tasks Update
+Send a PATCH request to update a task
+
+  #### patch /api/v1/clients/:client_id/lists/:list_id/tasks/:task_id
+
+  ##### Headers:
+  ```
+  Content-Type: application/json
+  Accept: application/json
+  ```
+
+  ##### Body:
+  ```
+  {
+    name: "updated name"
+  }
+  ```
+
+  ##### Successful Response
+  ```json
+  {
+    "id": 1,
+    "name": "updated name",
+    "description": "description of the first task",
+    "completed": "false",
+    "due_date": "date_time"
+  }
+  ```
+  ##### Unsuccessful Response
+  A valid client, list, and task ID must be provided otherwise a 404 status code (page not found) will be returned.
+
+### List Tasks Deletion
+Send a DELTE request to delete a task
+
+  #### delete /api/v1/clients/:client_id/lists/:list_id/tasks/:task_id
+
+  ##### Successful Response
+
+  Will return a 204 status code with no body.
+
+  ##### Unsuccessful Response
+  A valid client, list, and task ID must be provided otherwise a 404 status code (page not found) will be returned.
+
+---
+
+# Caretaker Endpoints
+
+## Single Caretaker:
+
+### Caretaker Profile
+  Send a GET request to receive all information related to a single caretaker
+
+  #### GET /api/v1/caretakers/:id
+
+  ##### Successful Response
+  ```json
   {
     "id": "1",
     "username": "katierulz",
     "name": "Katie",
-    "street_address": "123 Test St",
-    "city": "Denver",
-    "state": "CO",
-    "zip": "12345",
     "email": "katierulz@gmail.com",
     "phone_number": "1235551234",
-    "needs": ["groceries", "bills"],
-    "medications": ["drug_1", "drug_2"],
-    "diet_restrictions": ["vegetarian", "peanut-free"],
-    "role": "client",
+    "abilities": "ability_1",
+    "role": "caretaker",
     "created_at": "DateTime",
     "updated_at": "DateTime"
   }
   ```
   ##### Unsuccessful Response
-  A valid client ID must be provided otherwise a 404 status code (page not found) will be returned.
+  A valid caretaker ID must be provided otherwise a 404 status code (page not found) will be returned.
 
-## Caretaker Creation
+### Caretaker Creation:
 Send a POST request to create a caretaker
 
   #### POST /api/v1/caretakers/:id
@@ -304,7 +478,7 @@ Send a POST request to create a caretaker
   }
   ```
 
-## Caretaker Update
+### Caretaker Update
 Send a PATCH request to update a caretaker
 
   #### PATCH /api/v1/caretakers/:id
@@ -354,7 +528,7 @@ Send a PATCH request to update a caretaker
   }
   ```
 
-## Caretaker Deletion
+### Caretaker Deletion
   Send a DELETE request to delete a caretaker
 
   #### DELETE /api/v1/caretakers/:id
@@ -366,58 +540,7 @@ Send a PATCH request to update a caretaker
   ##### Unsuccessful Response
   A valid caretaker ID must be provided otherwise a 404 status code (page not found) will be returned.
 
-## All Caretakers
-  Send a GET request to receive a list of all caretakers
-
-  #### GET /api/v1/caretakers
-
-  ##### Successful Response:
-   ```
-  {
-      "id": 1,
-      "username": "caretaker_1",
-      "name": "caretaker_uno",
-      "email": "kate1@email.com",
-      "phone_number": "1234567891",
-      "abilities": "ability_1",
-      "role": "caretaker",
-      "created_at": "2019-09-04T22:14:25.439Z",
-      "updated_at": "2019-09-04T22:14:25.439Z"
-  },
-  {
-      "id": 2,
-      "username": "caretaker_2",
-      "name": "caretaker_dos",
-      "email": "kate2@email.com",
-      "phone_number": "1234567891",
-      "abilities": "ability_1",
-      "role": "caretaker",
-      "created_at": "2019-09-04T22:14:25.439Z",
-      "updated_at": "2019-09-04T22:14:25.439Z"
-  }
-  ```
-
-## Caretaker Profile
-  Send a GET request to receive all information related to a single caretaker
-
-  #### GET /api/v1/caretakers/:id
-
-  ##### Successful Response
-  ```json
-  {
-    "id": "1",
-    "username": "katierulz",
-    "name": "Katie",
-    "email": "katierulz@gmail.com",
-    "phone_number": "1235551234",
-    "abilities": "ability_1",
-    "role": "caretaker",
-    "created_at": "DateTime",
-    "updated_at": "DateTime"
-  }
-  ```
-  ##### Unsuccessful Response
-  A valid caretaker ID must be provided otherwise a 404 status code (page not found) will be returned.
+## Caretaker Lists
 
 ## Caretaker List Show
 Send a GET request to get a single list associated with a caretaker
@@ -470,7 +593,9 @@ Send a GET request to get all the lists associated with a caretaker
   ##### Unsuccessful Response
   A valid caretaker ID must be provided otherwise a 404 status code (page not found) will be returned. 
 
-  ## Caretaker Tasks Update
+## Caretaker Tasks:
+
+  ### Caretaker Tasks Update
 Send a PATCH request to update a task
 
   #### patch /api/v1/caretakers/:id/lists/:list_id/tasks/:task_id
@@ -499,237 +624,6 @@ Send a PATCH request to update a task
     "due_date": "date_time"
   }
   ```
-  ##### Unsuccessful Response
-  A valid client, list, and task ID must be provided otherwise a 404 status code (page not found) will be returned.
-
-## List Creation
-Send a POST request to create a list for a client
-
-  #### POST /api/v1/clients/:client_id/lists
-
-  ##### Headers:
-  ```
-  Content-Type: application/json
-  Accept: application/json
-  ```
-
-  ##### Body:
-  ```json
-  {
-    "name": "Groceries"
-  }
-  ```
-
-  ##### Successful Response
-  ```json
-  {
-      "id": 1,
-      "name": "groceries",
-      "client_id": 2,
-      "created_at": "2019-09-04T22:14:25.439Z",
-      "updated_at": "2019-09-04T22:14:25.439Z"
-  }
-  ```
-  ##### Unsuccessful Response
-  A valid client ID must be provided otherwise a 404 status code (page not found) will be returned.
-
-## List Index
-Send a GET request to show all lists associated with a client
-
-  #### GET /api/v1/clients/:client_id/lists
-
-  ##### Headers:
-  ```
-  Content-Type: application/json
-  Accept: application/json
-  ```
-
-  ##### Successful Response
-  ```json
-  [
-    {
-      "id": 1,
-      "name": "groceries",
-      "client_id": 2,
-      "created_at": "2019-09-04T22:14:25.439Z",
-      "updated_at": "2019-09-04T22:14:25.439Z"
-    },
-    {
-      "id": 2,
-      "name": "bills",
-      "client_id": 2,
-      "created_at": "2019-09-04T22:14:25.439Z",
-      "updated_at": "2019-09-04T22:14:25.439Z"
-    }
-  ]
-  ```
-  ##### Unsuccessful Response
-  A valid client ID must be provided otherwise a 404 status code (page not found) will be returned.
-
-## List Update
-Send a PATCH request to update a clients list
-
-  #### patch /api/v1/clients/:client_id/lists/:list_id
-
-  ##### Headers:
-  ```
-  Content-Type: application/json
-  Accept: application/json
-  ```
-
-  ##### Body:
-  ```json
-  {
-    "name": "updated name"
-  }
-  ```
-
-  ##### Successful Response
-  ```json
-
-  {
-    "id": 1,
-    "name": "updated name",
-    "client_id": 2,
-    "created_at": "2019-09-04T22:14:25.439Z",
-    "updated_at": "2019-09-04T22:14:25.439Z"
-  }
-
-  ```
-  ##### Unsuccessful Response
-  A valid client and list ID must be provided otherwise a 404 status code (page not found) will be returned.
-
-## List Deletion
-Send a DELETE request to delete a clients list
-
-  #### delete /api/v1/clients/:client_id/lists/:list_id
-
-  ##### Successful Response:
-
-  Will return a 204 status code with no body.
-  All tasks associated with the list will also be deleted
-
-  ##### Unsuccessful Response
-  A valid client ID and list ID must be provided otherwise a 404 status code (page not found) will be returned.
-
-## List Task Creation
-Send a POST request to create a list task
-
-  #### post /api/v1/clients/:client_id/lists/:list_id/tasks
-
-  ##### Headers:
-  ```
-  Content-Type: application/json
-  Accept: application/json
-  ```
-  #### Body:
-  *Due date is optional*
-  ```json
-{
-    "name": "task one",
-    "description": "description of the first task",
-    "due_date": "2018-12-08"
-}
-  ```
-
-  ##### Successful Response
-  ```json
-
-  {
-    "id": 1,
-    "name": "task_uno",
-    "description": "description of the first task",
-    "completed": "false",
-    "due_date": "2018-12-08"
-  }
-
-  ```
-  ##### Unsuccessful Response
-  A valid client and list ID must be provided otherwise a 404 status code (page not found) will be returned.
-
-## List Tasks Index
-Send a GET request to get all tasks associated with a clients list
-
-  #### get /api/v1/clients/:client_id/lists/:list_id/tasks
-
-  ##### Headers:
-  ```
-  Content-Type: application/json
-  Accept: application/json
-  ```
-
-  ##### Successful Response
-  ```json
-[
-  {"id":83,
-    "name":"Coriander Seed",
-    "description":"3 gallon",
-    "completed":false,
-    "list_id":349,
-    "created_at":"2019-09-06T04:43:25.260Z",
-    "updated_at":"2019-09-06T04:43:25.260Z",
-    "due_date":"2019-09-17T00:00:00.000Z"},
-   {"id":84,
-    "name":"Mung Beans",
-    "description":"3 gallon",
-    "completed":false,
-    "list_id":349,
-    "created_at":"2019-09-06T04:43:25.262Z",
-    "updated_at":"2019-09-06T04:43:25.262Z",
-    "due_date":"2019-09-07T00:00:00.000Z"},
-   {"id":85,
-    "name":"Sweet Potato",
-    "description":"1 gallon",
-    "completed":false,
-    "list_id":349,
-    "created_at":"2019-09-06T04:43:25.263Z",
-    "updated_at":"2019-09-06T04:43:25.263Z",
-    "due_date":"2019-09-24T00:00:00.000Z"}
-]
-  ```
-  ##### Unsuccessful Response
-  A valid client and list ID must be provided otherwise a 404 status code (page not found) will be returned.
-
-## List Tasks Update
-Send a PATCH request to update a task
-
-  #### patch /api/v1/clients/:client_id/lists/:list_id/tasks/:task_id
-
-  ##### Headers:
-  ```
-  Content-Type: application/json
-  Accept: application/json
-  ```
-
-  ##### Body:
-  ```
-  {
-    name: "updated name"
-  }
-  ```
-
-  ##### Successful Response
-  ```json
-  {
-    "id": 1,
-    "name": "updated name",
-    "description": "description of the first task",
-    "completed": "false",
-    "due_date": "date_time"
-  }
-  ```
-  ##### Unsuccessful Response
-  A valid client, list, and task ID must be provided otherwise a 404 status code (page not found) will be returned.
-
-## List Tasks Deletion
-Send a DELTE request to delete a task
-
-  #### delete /api/v1/clients/:client_id/lists/:list_id/tasks/:task_id
-
-  ##### Successful Response
-
-  Will return a 204 status code with no body.
-
   ##### Unsuccessful Response
   A valid client, list, and task ID must be provided otherwise a 404 status code (page not found) will be returned.
 
@@ -782,17 +676,17 @@ Returns 400 and body:
   }
 ```
 
-## Challenges
+## Database Schema
+<img width="812" alt="sophia_db_schema" src="https://user-images.githubusercontent.com/34421236/64760769-bcbca100-d4f7-11e9-989f-d03cb4b120b1.png">
 
-coming soon...
+## Challenges
+Technicle Debt: This project has two types of users, a client and a caretaker. When planning our database architecture, we were more focused on implementing the client funcionality first. When we moved on to implementing the caretaker funcionality, we had to rearrange much of the existing routes and controllers to accomidate.
 
 ## Successes
-
-coming soon...
+Testing: During the course of developing this project, we were consitently able to maintain 97% to 100% test coverage.
 
 ## Extensions
-
-coming soon...
+We would eventually like to combine both the client and caretaker tables into one. 
 
 ## Developers
 
@@ -806,3 +700,7 @@ coming soon...
 ## Frontend Repo
 
 * Github: [Sophia Repo](https://github.comkalex19/Sophia-Native)
+
+## Production
+
+* Heroku: [Sophia Rails Application](https://evening-dusk-50121.herokuapp.com/)
