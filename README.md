@@ -9,6 +9,7 @@
 * [Learning Goals](#Learning-Goals)
 * [How To Use](#How-To-Use)
 * [Endpoints](#Endpoints)
+* [Database Schema](#Database-Schema)
 * [Challenges](#Challenges)
 * [Successes](#Successes)
 * [Extensions](#Extensions)
@@ -674,6 +675,9 @@ Returns 400 and body:
     "message": "Invalid Username/Password"
   }
 ```
+
+## Database Schema
+<img width="812" alt="sophia_db_schema" src="https://user-images.githubusercontent.com/34421236/64760769-bcbca100-d4f7-11e9-989f-d03cb4b120b1.png">
 
 ## Challenges
 Technicle Debt: This project has two types of users, a client and a caretaker. When planning our database architecture, we were more focused on implementing the client funcionality first. When we moved on to implementing the caretaker funcionality, we had to rearrange much of the existing routes and controllers to accomidate.
