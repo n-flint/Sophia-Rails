@@ -33,3 +33,4 @@ coverage
 /config/application.yml
 
 # Ignore google application credentials JSON file
+/google_key.json
