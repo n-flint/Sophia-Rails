@@ -7,7 +7,6 @@ class TaskSerializer
     @completed = data[:completed]
     @created_at = data[:created_at]
     @updated_at = data[:updated_at]
-    @role = data[:role]
     @due_date = data[:due_date].strftime("%m/%d") if data[:due_date]
   end
 end
