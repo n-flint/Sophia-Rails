@@ -6,7 +6,7 @@ RSpec.describe GoogleService, type: :service do
   end
 
   it "can turn audio to text" do
-    text = @service.speech_to_text('./hello_there_test.flac', 44100)
+    text = @service.speech_to_text('./app/assets/audio/hello_there_test.flac', 44100)
 
     expect(text).to eq("hello there")
   end
