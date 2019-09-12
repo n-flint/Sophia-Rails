@@ -66,6 +66,8 @@ This is a unique opportunity that presents some valuable goals:
 - Caretaker Lists
   - [Caretaker List Show](#caretaker-list-show)
   - [Caretaker List Index](#caretaker-list-index)
+- Caretaker Tasks
+  - [Caretaker Task Update](#caretaker-task-update)
 - Client Lists
   - [List Creation](#list-creation)
   - [List Index](#list-index)
@@ -467,6 +469,38 @@ Send a GET request to get all the lists associated with a caretaker
 
   ##### Unsuccessful Response
   A valid caretaker ID must be provided otherwise a 404 status code (page not found) will be returned. 
+
+  ## Caretaker Tasks Update
+Send a PATCH request to update a task
+
+  #### patch /api/v1/caretakers/:id/lists/:list_id/tasks/:task_id
+
+  ##### Headers:
+  ```
+  Content-Type: application/json
+  Accept: application/json
+  ```
+
+  ##### Body:
+  ```
+  {
+    name: "updated name",
+    completed: "true"
+  }
+  ```
+
+  ##### Successful Response
+  ```json
+  {
+    "id": 1,
+    "name": "updated name",
+    "description": "description of the first task",
+    "completed": "true",
+    "due_date": "date_time"
+  }
+  ```
+  ##### Unsuccessful Response
+  A valid client, list, and task ID must be provided otherwise a 404 status code (page not found) will be returned.
 
 ## List Creation
 Send a POST request to create a list for a client
