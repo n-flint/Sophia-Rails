@@ -7,11 +7,13 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 Client.destroy_all
+Caretaker.destroy_all
 List.destroy_all
 Task.destroy_all
 
-test_client = Client.create!(username: "AndreeaTestClient", password: "pass", name: "Test Client 1", street_address: "123 Test Rd", city: "Denver", state: "CO", zip: "80203", email: "test1@example.com", phone_number: "2465553421", needs: "Groceries, Bills", allergies: "Pollen, Latex", medications: "Vasodilator, Synthroid", diet_restrictions: "vegetarian, peanut-free")
-grocery_list = test_client.lists.create!(name: "Groceries")
+test_client = Client.create!(username: "AndreeaTestClient", password: "pass", name: "Test Client 1", street_address: "123 Test Rd", city: "Denver", state: "CO", zip: "80203", email: "testclient@example.com", phone_number: "2465553421", needs: "Groceries, Bills", allergies: "Pollen, Latex", medications: "Vasodilator, Synthroid", diet_restrictions: "vegetarian, peanut-free", role: 'client')
+test_caretaker = Caretaker.create!(username: "AndreeaTestCaretaker", password: 'pass', name: "Test Caretaker 1", email: "testcaretaker@example.com", phone_number: "5055551234", abilities: "Grocery, Accounting", role: 'caretaker')
+grocery_list = test_client.lists.create!(name: "Groceries", caretaker: test_caretaker)
 Task.create!([
   {
     name: "Gala Apples",
@@ -38,7 +40,7 @@ Task.create!([
     list: grocery_list
   }
 ])
-dinner_party_errands = test_client.lists.create!(name: "Dinner Party Errands")
+dinner_party_errands = test_client.lists.create!(name: "Dinner Party Errands", caretaker: test_caretaker)
 Task.create!([
   {
     name: "Get Present for Dayna",
