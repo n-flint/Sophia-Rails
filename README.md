@@ -26,6 +26,8 @@ SOPHIA is an A11Y app with a large focus on accessibility.
 ## Technologies Used
   - [Ruby](https://ruby-doc.org/)
   - [Ruby On Rails](https://guides.rubyonrails.org/)
+  - [PostgreSQL](https://www.postgresql.org/)
+  - [RSpec-Rails](https://github.com/rspec/rspec-rails)
   - [Travis CI](https://travis-ci.org) [![Build Status](https://travis-ci.org/n-flint/Sophia-Rails.svg?branch=master)](https://travis-ci.org/n-flint/Sophia-Rails)
 
 ## Learning Goals
@@ -44,10 +46,17 @@ This is a unique opportunity that presents some valuable goals:
 
 ## Setup
 1. Clone this repository
-2. Further instructions to come
+2. Run command `bundle`
+3. Run command `rails db:create`
+4. Run command `rails db:migrate`
+4. Run command `rails db:seed`
+4. Run command `rails start` to start a server
+
 
 ### Testing
-1. Instructions for setting up rspec here
+1. Add `gem rspec-rails`
+2. Run command `bundle`
+3. Run command `rails g rspec:install`
 
 ---
 
