@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
       # caretaker list tasks
       get '/caretakers/:id/lists/:list_id/tasks', to: 'caretakers/tasks#index'
+      patch '/caretakers/:id/lists/:list_id/tasks/:task_id', to: 'caretakers/tasks#update'
 
       post '/speech', to: 'speech#index'
       post '/login', to: 'login#create'
