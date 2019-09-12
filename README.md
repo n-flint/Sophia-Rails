@@ -783,12 +783,10 @@ Returns 400 and body:
 ```
 
 ## Challenges
-
-coming soon...
+Technicle Debt: This project has two types of users, a client and a caretaker. When planning our database architecture, we were more focused on implementing the client funcionality first. When we moved on to implementing the caretaker funcionality, we had to rearrange much of the existing routes and controllers to accomidate.
 
 ## Successes
-
-coming soon...
+Testing: During the course of developing this project, we were consitently able to maintain 97% to 100% test coverage.
 
 ## Extensions
 
