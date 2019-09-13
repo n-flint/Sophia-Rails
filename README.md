@@ -84,7 +84,7 @@ bundle exec rspec spec/requests
 
 Testing Google Text to Speech:
 
-*Google Speech api will look for an Environment Variable called GOOGLE_APPLICATION_CREDENTIALS that points to the path of key.json assigned by google. More info can be found [here](#Description). Use installed Figaro gem to hide environment variables*
+*Google Speech api will look for an Environment Variable called GOOGLE_APPLICATION_CREDENTIALS that points to the path of key.json assigned by google. More info can be found [here](https://cloud.google.com/speech-to-text/docs/quickstart-client-libraries) in the 'Before you begin' section. Use installed Figaro gem to hide environment variables*
 
 ```
 bundle exec rspec spec/services
