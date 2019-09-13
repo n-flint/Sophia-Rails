@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_07_043339) do
+ActiveRecord::Schema.define(version: 2019_09_11_021927) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "caretakers", force: :cascade do |t|
+    t.string "username"
+    t.string "name"
+    t.string "email"
+    t.string "phone_number"
+    t.string "password_digest"
+    t.string "abilities"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "role"
+  end
 
   create_table "clients", force: :cascade do |t|
     t.string "username"
@@ -31,6 +43,7 @@ ActiveRecord::Schema.define(version: 2019_09_07_043339) do
     t.datetime "updated_at", null: false
     t.string "diet_restrictions"
     t.string "password_digest"
+    t.string "role"
     t.index ["username"], name: "index_clients_on_username"
   end
 
@@ -39,6 +52,8 @@ ActiveRecord::Schema.define(version: 2019_09_07_043339) do
     t.bigint "client_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "caretaker_id"
+    t.index ["caretaker_id"], name: "index_lists_on_caretaker_id"
     t.index ["client_id"], name: "index_lists_on_client_id"
   end
 
@@ -53,6 +68,7 @@ ActiveRecord::Schema.define(version: 2019_09_07_043339) do
     t.index ["list_id"], name: "index_tasks_on_list_id"
   end
 
+  add_foreign_key "lists", "caretakers"
   add_foreign_key "lists", "clients"
   add_foreign_key "tasks", "lists"
 end

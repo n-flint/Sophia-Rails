@@ -9,7 +9,8 @@ class Api::V1::ClientsController < ApplicationController
                                      :street_address,
                                      :city,
                                      :state,
-                                     :zip]
+                                     :zip,
+                                     :role]
 
   def show
     render json: ClientSerializer.new(Client.find(params[:id]))
@@ -46,7 +47,7 @@ class Api::V1::ClientsController < ApplicationController
     diet_restrictions = params[:diet_restrictions].join(', ')
     new_client.update_attributes(diet_restrictions: diet_restrictions, needs: needs, medications: medications, allergies: allergies)
     if new_client.save
-      render json: ClientSerializer.new(new_client), status: 201
+      render json: ClientSerializer.new(new_client, params[:password]), status: 201
     else
       render json: new_client.errors, status: 400
     end
@@ -64,7 +65,8 @@ class Api::V1::ClientsController < ApplicationController
                                    :street_address,
                                    :city,
                                    :state,
-                                   :zip
+                                   :zip,
+                                   :role
                                 )
   end
 end

@@ -14,7 +14,8 @@ RSpec.describe 'Clients API' do
                 "phone_number": "246342176",
                 "needs": "Grocery, Bills",
                 "allergies": "Pollen, Hard-Work",
-                "medications": "Cannabis"
+                "medications": "Cannabis",
+                "role": "client"
     })
 
     @current_client_2 = Client.create({
@@ -29,7 +30,8 @@ RSpec.describe 'Clients API' do
                 "phone_number": "246342176",
                 "needs": "Grocery, Bills",
                 "allergies": "Pollen, Hard-Work",
-                "medications": "Cannabis"
+                "medications": "Cannabis",
+                "role": "client"
     })
 
     @updated_client = {
@@ -63,6 +65,7 @@ RSpec.describe 'Clients API' do
     expect(data['city']).to eq('UpdatedDenver')
     expect(data['state']).to eq('CO')
     expect(data['zip']).to eq('updated80203')
+    expect(data['role']).to eq('client')
     expect(data['needs']).to eq(['Updated', 'Grocery', 'Bills'])
     expect(data['allergies']).to eq(['Updated', 'Pollen', 'Hard-Work'])
     expect(data['medications']).to eq(['Updated', 'Cannabis'])
