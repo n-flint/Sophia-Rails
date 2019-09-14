@@ -31,6 +31,8 @@ SOPHIA is an A11Y app with a large focus on accessibility.
   - [PostgreSQL](https://www.postgresql.org/)
   - [RSpec-Rails](https://github.com/rspec/rspec-rails)
   - [Travis CI](https://travis-ci.org)  [![Build Status](https://travis-ci.org/n-flint/Sophia-Rails.svg?branch=master)](https://travis-ci.org/n-flint/Sophia-Rails)
+  - [Docker](https://www.docker.com)
+  - [FFmpeg](https://ffmpeg.org/)
 
 ## Learning Goals
 
@@ -48,19 +50,51 @@ This is a unique opportunity that presents some valuable goals:
 
 ## Setup
 1. Clone this repository
-2. Run command `bundle`
-3. Run command `rails db:create`
-4. Run command `rails db:migrate`
-4. Run command `rails db:seed`
-4. Run command `rails start` to start a server
+```
+cd Sophia-Rails
+bundle install
+rails db:create
+rails db:migrate
+rails db:seed
+rails server
+```
+2. Navigate to http://localhost:3000
+
+## Docker Setup
+1. Clone this repository
+2. Make sure docker is running
+
+```
+cd Sophia-Rails
+git checkout dockerize
+docker-compose build
+docker-compose run web rails db:{create,migrate,seed}
+docker-compose up
+```
+
+3. Navigate to http://localhost:3000
 
 
 ### Testing
-1. Add `gem rspec-rails`
-2. Run command `bundle`
-3. Run command `rails g rspec:install`
+Testing Requests:
 
----
+```
+bundle exec rspec spec/requests
+```
+
+Testing Google Text to Speech:
+
+*Google Speech api will look for an Environment Variable called GOOGLE_APPLICATION_CREDENTIALS that points to the path of key.json assigned by google. More info can be found [here](https://cloud.google.com/speech-to-text/docs/quickstart-client-libraries) in the 'Before you begin' section.*
+
+```
+bundle exec rspec spec/services
+```
+
+Testing Models:
+
+```
+bundle exec rspec spec/models
+```
 
 ## Endpoints
 
@@ -560,7 +594,7 @@ Send a GET request to get a single list associated with a caretaker
   ```
 
   ##### Unsuccessful Response
-  A valid caretaker and list ID must be provided otherwise a 404 status code (page not found) will be returned. 
+  A valid caretaker and list ID must be provided otherwise a 404 status code (page not found) will be returned.
 
 ## Caretaker List Index
 Send a GET request to get all the lists associated with a caretaker
@@ -591,7 +625,7 @@ Send a GET request to get all the lists associated with a caretaker
   ```
 
   ##### Unsuccessful Response
-  A valid caretaker ID must be provided otherwise a 404 status code (page not found) will be returned. 
+  A valid caretaker ID must be provided otherwise a 404 status code (page not found) will be returned.
 
 ## Caretaker Tasks:
 
@@ -686,7 +720,7 @@ Technicle Debt: This project has two types of users, a client and a caretaker. W
 Testing: During the course of developing this project, we were consitently able to maintain 97% to 100% test coverage.
 
 ## Extensions
-We would eventually like to combine both the client and caretaker tables into one. 
+We would eventually like to combine both the client and caretaker tables into one.
 
 ## Developers
 
