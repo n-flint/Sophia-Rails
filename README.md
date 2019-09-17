@@ -51,16 +51,28 @@ This is a unique opportunity that presents some valuable goals:
 ## Setup
 1. Clone this repository
 ```
+cd Sophia-Rails
 bundle install
 rails db:create
 rails db:migrate
 rails db:seed
 rails server
 ```
+2. Navigate to http://localhost:3000
+
 ## Docker Setup
 1. Clone this repository
-2. Switch to `dockerize` branch
-3. Make sure docker is running
+2. Make sure docker is running
+
+```
+cd Sophia-Rails
+git checkout dockerize
+docker-compose build
+docker-compose run web rails db:{create,migrate,seed}
+docker-compose up
+```
+
+3. Navigate to http://localhost:3000
 
 ```
 docker-compose build
@@ -68,11 +80,25 @@ docker-compose up
 ```
 
 ### Testing
-1. Add `gem rspec-rails`
-2. Run command `bundle`
-3. Run command `rails g rspec:install`
+Testing Requests:
 
----
+```
+bundle exec rspec spec/requests
+```
+
+Testing Google Text to Speech:
+
+*Google Speech api will look for an Environment Variable called GOOGLE_APPLICATION_CREDENTIALS that points to the path of key.json assigned by google. More info can be found [here](https://cloud.google.com/speech-to-text/docs/quickstart-client-libraries) in the 'Before you begin' section.*
+
+```
+bundle exec rspec spec/services
+```
+
+Testing Models:
+
+```
+bundle exec rspec spec/models
+```
 
 ## Endpoints
 
