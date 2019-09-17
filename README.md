@@ -132,6 +132,8 @@ bundle exec rspec spec/models
   - [Caretaker Task Update](#caretaker-task-update)
 ### Login
 - [Login](#login)
+### Speech to text
+- [Speech to Text](#speech-to-text)
 
 ---
 
@@ -712,6 +714,35 @@ Returns 400 and body:
   {
     "message": "Invalid Username/Password"
   }
+```
+
+## Speech to Text
+Send a POST request to turn a .caf audio file into text
+
+*Google Speech api will look for an Environment Variable called GOOGLE_APPLICATION_CREDENTIALS that points to the path of key.json assigned by google. More info can be found [here](https://cloud.google.com/speech-to-text/docs/quickstart-client-libraries) in the 'Before you begin' section.*
+
+#### post /api/v1/speech
+
+##### Headers:
+```
+Content-Type: application/octet-stream
+```
+
+##### Body:
+Body Should contain an audio blob originating from a .caf file
+
+##### Successful Response
+Returns text converted from audio file sent.
+```json
+{
+  "message": "groceries"
+}
+```
+##### Unsuccessful Response
+```json
+{
+  "message": "No Matching Text Found"
+}
 ```
 
 ## Database Schema
