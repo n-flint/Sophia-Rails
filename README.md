@@ -74,11 +74,6 @@ docker-compose up
 
 3. Navigate to http://localhost:3000
 
-```
-docker-compose build
-docker-compose up
-```
-
 ### Testing
 Testing Requests:
 
@@ -104,35 +99,35 @@ bundle exec rspec spec/models
 
 ### Client Endpoints
 - [Single Client](#single-client)
-  - [Client Profile](#client-profile)
-  - [Client Creation](#client-creation)
-  - [Client Update](#client-update)
-  - [Client Deletion](#client-deletion)
-- [Client Lists](#client-lists)
-  - [List Creation](#list-creation)
-  - [List Index](#list-index)
-  - [List Update](#list-update)
-  - [List Deletion](#list-deletion)
+  - [Show](#client-profile)
+  - [Create](#client-creation)
+  - [Update](#client-update)
+  - [Delete](#client-deletion)
+- Client Lists
+  - [Create](#client-list-creation)
+  - [Index](#client-list-index)
+  - [Update](#client-list-update)
+  - [Delete](#client-list-deletion)
 - [Client Tasks](#client-tasks)
-  - [List Tasks Creation](#list-task-creation)
-  - [List Tasks Index](#list-tasks-index)
-  - [List Tasks Update](#list-tasks-update)
-  - [List Tasks Deletion](#list-tasks-deletion)
+  - [Create](#list-task-creation)
+  - [Index](#list-tasks-index)
+  - [Update](#list-tasks-update)
+  - [Delete](#list-tasks-deletion)
 
 ### Caretaker Endpoints
 - [Single Caretaker](#single-caretaker)
-  - [Caretaker Profile](#caretaker-profile)
-  - [Caretaker Creation](#caretaker-creation)
-  - [Caretaker Update](#caretaker-update)
-  - [Caretaker Deletion](#caretaker-deletion)
+  - [Show](#caretaker-profile)
+  - [Create](#caretaker-creation)
+  - [Update](#caretaker-update)
+  - [Delete](#caretaker-deletion)
 - [Caretaker Lists](#caretaker-lists)
-  - [Caretaker List Show](#caretaker-list-show)
-  - [Caretaker List Index](#caretaker-list-index)
+  - [Show](#caretaker-list-show)
+  - [Index](#caretaker-list-index)
 - [Caretaker Tasks](#caretaker-tasks)
-  - [Caretaker Task Update](#caretaker-task-update)
+  - [Update](#caretaker-tasks-update)
 ### Login
 - [Login](#login)
-### Speech to text
+### Speech to Text
 - [Speech to Text](#speech-to-text)
 
 ---
@@ -295,16 +290,91 @@ Send a PATCH request to update a clients profile
 ### Client Deletion
 Send a DELETE request to delete a client
 
-  #### DELETE /api/v1/clients/:id
+#### DELETE /api/v1/clients/:id
 
-  ##### Successful Response:
+##### Successful Response:
 
-  will return a 204 status code with no body
+will return a 204 status code with no body
 
-  ##### Unsuccessful Response
-  A valid client ID must be provided otherwise a 404 status code (page not found) will be returned.
+##### Unsuccessful Response
+A valid client ID must be provided otherwise a 404 status code (page not found) will be returned.
 
-## Client Tasks
+## Client List Creation
+Send a POST request to create a client list
+
+### POST /api/v1/clients/:client_id/lists
+
+#### With Body:
+```json
+{
+	"name": "groceries"
+}
+```
+
+#### Successful Response:
+
+```json
+{
+    "id": 14,
+    "name": "groceries",
+    "client_id": 3,
+    "created_at": "2019-09-20T23:33:15.377Z",
+    "updated_at": "2019-09-20T23:33:15.377Z",
+    "caretaker_id": null
+}
+```
+
+## Client List Index
+
+### GET /api/v1/clients/:client_id/lists
+#### Response:
+```json
+[
+    {
+        "id": 4,
+        "name": "Groceries",
+        "client_id": 3,
+        "created_at": "2019-09-12T00:47:15.239Z",
+        "updated_at": "2019-09-12T00:47:15.239Z",
+        "caretaker_id": 4
+    },
+    {
+        "id": 5,
+        "name": "Dinner Party Errands",
+        "client_id": 3,
+        "created_at": "2019-09-12T00:47:15.250Z",
+        "updated_at": "2019-09-12T00:47:15.250Z",
+        "caretaker_id": 4
+    }
+]
+```
+
+## Client List Update
+### PATCH /api/v1/clients/:client_id/lists/:list_id
+#### With Body:
+```json
+{
+	"name": "yard work"
+}
+```
+Response:
+```json
+{
+    "client_id": 3,
+    "id": 4,
+    "name": "yard work",
+    "created_at": "2019-09-12T00:47:15.239Z",
+    "updated_at": "2019-09-21T00:00:18.387Z",
+    "caretaker_id": 4
+}
+```
+
+## Client List Deletion
+### DELETE /api/v1/clients/:client_id/lists/:list_id
+Will return a 204 status code with no body.
+
+##### Unsuccessful Response
+A valid client and list id must be provided otherwise a 404 status code (page not found) will be returned.
 
 
 ### List Task Creation
@@ -633,7 +703,7 @@ Send a GET request to get all the lists associated with a caretaker
   ##### Unsuccessful Response
   A valid caretaker ID must be provided otherwise a 404 status code (page not found) will be returned.
 
-## Caretaker Tasks:
+## Caretaker Tasks Update:
 
   ### Caretaker Tasks Update
 Send a PATCH request to update a task
@@ -732,16 +802,16 @@ Content-Type: application/octet-stream
 Body Should contain an audio blob originating from a .caf file
 
 ##### Successful Response
-Returns text converted from audio file sent.
+
 ```json
 {
-  "message": "groceries"
+  "text": "groceries"
 }
 ```
 ##### Unsuccessful Response
 ```json
 {
-  "message": "No Matching Text Found"
+  "text": "No Matching Text Found"
 }
 ```
 
@@ -749,26 +819,29 @@ Returns text converted from audio file sent.
 <img width="812" alt="sophia_db_schema" src="https://user-images.githubusercontent.com/34421236/64760769-bcbca100-d4f7-11e9-989f-d03cb4b120b1.png">
 
 ## Challenges
-Technicle Debt: This project has two types of users, a client and a caretaker. When planning our database architecture, we were more focused on implementing the client funcionality first. When we moved on to implementing the caretaker funcionality, we had to rearrange much of the existing routes and controllers to accomidate.
+Technical Debt: This project has two types of users, a client and a caretaker. When planning our database architecture, we were more focused on implementing the client functionality first. When we moved on to implementing the caretaker functionality, we had to rearrange much of the existing routes and controllers to accommodate.
 
 ## Successes
-Testing: During the course of developing this project, we were consitently able to maintain 97% to 100% test coverage.
+- Implementing Speech to Text
+- MVP goals were reached in 2 weeks with front end team
 
 ## Extensions
-We would eventually like to combine both the client and caretaker tables into one.
+- Implement Websockets to stream audio from front end
+- Rearrange routing to allow list and task CRUD without client or caretaker association
+- Refactor `protect_from_forgery` methods in controllers
 
 ## Developers
 
 👤 **Noah Flint, Vince Carollo, Katie Lewis, Andreea Hanson**
 
-* Github: [@n-flint](https://github.com/n-flint)
-* Github: [@VinceCarollo](https://github.com/VinceCarollo)
-* Github: [@Kalex19](https://github.com/Kalex19)
-* Github: [@andreeahanson](https://github.com/andreeahanson)
+* [@n-flint](https://github.com/n-flint)
+* [@VinceCarollo](https://github.com/VinceCarollo)
+* [@Kalex19](https://github.com/Kalex19)
+* [@andreeahanson](https://github.com/andreeahanson)
 
-## Frontend Repo
+## Frontend
 
-* Github: [Sophia Repo](https://github.comkalex19/Sophia-Native)
+* [Sophia Repo](https://github.comkalex19/Sophia-Native)
 
 ## Production
 
