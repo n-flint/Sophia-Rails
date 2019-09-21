@@ -10,16 +10,16 @@ RSpec.describe 'Caretakers API' do
 
     data = JSON.parse(response.body, symbolize_names: true)
 
-    expect(data[0][:username]).to eq(@caretaker1.username)
-    expect(data[0][:name]).to eq(@caretaker1.name)
-    expect(data[0][:email]).to eq(@caretaker1.email)
-    expect(data[0][:phone_number]).to eq(@caretaker1.phone_number)
-    expect(data[0][:abilities]).to include(@caretaker1.abilities.split(', ').first)
-    expect(data[0][:abilities]).to include(@caretaker1.abilities.split(', ').second)
-    expect(data[0][:role]).to eq(@caretaker1.role)
-    expect(data[1][:username]).to eq(@caretaker2.username)
-    expect(data[1][:name]).to eq(@caretaker2.name)
-    expect(data[1][:email]).to eq(@caretaker2.email)
-    expect(data[1][:phone_number]).to eq(@caretaker2.phone_number)
+    expect(data).to be_a Array
+    expect(data.count).to eq(2)
+
+    expect(data.first).to have_key(:username)
+    expect(data.first).to have_key(:name)
+    expect(data.first).to have_key(:email)
+    expect(data.first).to have_key(:phone_number)
+    expect(data.first).to have_key(:role)
+    expect(data.first).to have_key(:abilities)
+    expect(data.first[:abilities]).to be_a Array
+    expect(data.first[:abilities].length).to eq(2)
   end
 end
