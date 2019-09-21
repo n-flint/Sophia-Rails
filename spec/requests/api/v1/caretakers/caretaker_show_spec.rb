@@ -2,28 +2,23 @@ require 'rails_helper'
 
 RSpec.describe 'Caretakers API' do
   it 'can get a single caretaker' do
-    caretaker = Caretaker.create({
-      'username': 'caretaker_1',
-      'password': 'password',
-      'password_confirmation': 'password',
-      'name': 'caretaker_uno',
-      'email': 'kate@email.com',
-      'phone_number': '1234567891',
-      'abilities': 'ability_1, ability_2',
-      'role': 'caretaker'
-    })
+    caretaker = create(:caretaker)
 
     get "/api/v1/caretakers/#{caretaker.id}"
 
-    data = JSON.parse(response.body)
+    expect(response).to be_successful
+    expect(status).to eq(200)
 
-    expect(response.code).to eq('200')
-    expect(data['username']).to eq('caretaker_1')
-    expect(data['name']).to eq('caretaker_uno')
-    expect(data['email']).to eq('kate@email.com')
-    expect(data['phone_number']).to eq('1234567891')
-    expect(data['abilities']).to eq(['ability_1', 'ability_2'])
-    expect(data['role']).to eq('caretaker')
+    data = JSON.parse(response.body, symbolize_names: true)
+
+    expect(data[:username]).to eq(caretaker.username)
+    expect(data[:name]).to eq(caretaker.name)
+    expect(data[:email]).to eq(caretaker.email)
+    expect(data[:phone_number]).to eq(caretaker.phone_number)
+    expect(data).to have_key(:abilities)
+    expect(data[:abilities]).to be_a Array
+    expect(data[:abilities].length).to eq(2)
+    expect(data[:role]).to eq(caretaker.role)
   end
 
   it 'returns a 404 if a invalid ID is provided' do
