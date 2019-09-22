@@ -2,45 +2,30 @@ require 'rails_helper'
 
 RSpec.describe 'Clients API' do
   before :each do
-    @new_client = {
-                "username": "username1",
-                "password": "pass",
-                "password_confirmation": "pass",
-                "name": "name1",
-                "street_address": "123 Fake St.",
-                "city": "Denver",
-                "state": "CO",
-                "zip": "80203",
-                "email": "new@email.com",
-                "phone_number": "246342176",
-                "needs": ["Grocery", "Bills"],
-                "allergies": ["Pollen", "Hard-Work"],
-                "medications": ["Cannabis"],
-                "diet_restrictions": ["vegetarian", "peanut-free"],
-                "role": 'client'
-    }.to_json
-
-    @current_client = Client.create!({
-                "username": "existing_user",
-                "password": "pass",
-                "name": "name1",
-                "street_address": "123 Fake St.",
-                "city": "Denver",
-                "state": "CO",
-                "zip": "80203",
-                "email": "example@email.com",
-                "phone_number": "246342176",
-                "needs": "Grocery, Bills",
-                "allergies": "Pollen, Hard-Work",
-                "medications": "Cannabis",
-                "diet_restrictions": "vegetarian, peanut-free",
-                "role": "client"
-    })
+    @client = create(:client)
   end
 
   it 'can create a new client profile' do
+    new_client = {
+      username: "username1",
+      password: "pass",
+      password_confirmation: "pass",
+      name: "name1",
+      street_address: "123 Fake St.",
+      city: "Denver",
+      state: "CO",
+      zip: "80203",
+      email: "new@email.com",
+      phone_number: "246342176",
+      needs: ["Grocery", "Bills"],
+      allergies: ["Pollen", "Hard-Work"],
+      medications: ["Cannabis"],
+      diet_restrictions: ["vegetarian", "peanut-free"],
+      role: 'client'
+    }
+
     headers = { 'CONTENT_TYPE' => 'application/json'}
-    post '/api/v1/clients', params: @new_client, headers: headers
+    post '/api/v1/clients', params: new_client.to_json, headers: headers
 
     data = JSON.parse(response.body)
     client = Client.find(data['id'])
@@ -65,26 +50,28 @@ RSpec.describe 'Clients API' do
     expect(client.role).to eq('client')
   end
 
-  it 'recieves a 404 if username is not unique' do
-    invalid_client = {
-                "username": "#{@current_client.username}",
-                "password": "pass",
-                "password_confirmation": "pass",
-                "name": "name1",
-                "street_address": "123 Fake St.",
-                "city": "Denver",
-                "state": "CO",
-                "zip": "80203",
-                "email": "example2@email.com",
-                "phone_number": "246342176",
-                "needs": ["Grocery", "Bills"],
-                "allergies": ["Pollen", "Hard-Work"],
-                "medications": ["Cannabis"],
-                "diet_restrictions": ["vegetarian", "peanut_free"],
-    }.to_json
+  it 'returns a 404 if username is not unique' do
+    new_client = {
+      username: @client.username,
+      password: "pass",
+      password_confirmation: "pass",
+      name: "name1",
+      street_address: "123 Fake St.",
+      city: "Denver",
+      state: "CO",
+      zip: "80203",
+      email: "new@email.com",
+      phone_number: "246342176",
+      needs: ["Grocery", "Bills"],
+      allergies: ["Pollen", "Hard-Work"],
+      medications: ["Cannabis"],
+      diet_restrictions: ["vegetarian", "peanut-free"],
+      role: 'client'
+    }
+
     headers = { 'CONTENT_TYPE' => 'application/json'}
 
-    post '/api/v1/clients', params: invalid_client, headers: headers
+    post '/api/v1/clients', params: new_client.to_json, headers: headers
 
     data = JSON.parse(response.body)
 
@@ -93,26 +80,28 @@ RSpec.describe 'Clients API' do
     expect(data['username']).to eq(['has already been taken'])
   end
 
-  it 'recieves a 404 if email is not unique' do
-    invalid_client = {
-                "username": "name1",
-                "password": "pass",
-                "password_confirmation": "pass",
-                "name": "name1",
-                "street_address": "123 Fake St.",
-                "city": "Denver",
-                "state": "CO",
-                "zip": "80203",
-                "email": @current_client.email,
-                "phone_number": "246342176",
-                "needs": ["Grocery", "Bills"],
-                "allergies": ["Pollen", "Hard-Work"],
-                "medications": ["Cannabis"],
-                "diet_restrictions": ["vegetarian", "peanut_free"],
-    }.to_json
+  it 'returns a 404 if email is not unique' do
+    new_client = {
+      username: "TestUsername",
+      password: "pass",
+      password_confirmation: "pass",
+      name: "name1",
+      street_address: "123 Fake St.",
+      city: "Denver",
+      state: "CO",
+      zip: "80203",
+      email: @client.email,
+      phone_number: "246342176",
+      needs: ["Grocery", "Bills"],
+      allergies: ["Pollen", "Hard-Work"],
+      medications: ["Cannabis"],
+      diet_restrictions: ["vegetarian", "peanut-free"],
+      role: 'client'
+    }
+
     headers = { 'CONTENT_TYPE' => 'application/json'}
 
-    post '/api/v1/clients', params: invalid_client, headers: headers
+    post '/api/v1/clients', params: new_client.to_json, headers: headers
 
     data = JSON.parse(response.body)
 
