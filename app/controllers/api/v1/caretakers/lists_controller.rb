@@ -1,6 +1,4 @@
 class Api::V1::Caretakers::ListsController < ApplicationController
-  protect_from_forgery with: :null_session
-
   def index
     caretaker = Caretaker.find(params[:id])
     render json: caretaker.lists

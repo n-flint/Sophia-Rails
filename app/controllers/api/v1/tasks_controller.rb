@@ -1,5 +1,5 @@
 class Api::V1::TasksController < ApplicationController
-  protect_from_forgery with: :null_session
+  protect_from_forgery unless: -> { request.format.json? }
 
   def create
     new_task = Task.new(task_params)
