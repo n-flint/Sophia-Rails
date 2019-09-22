@@ -1,6 +1,4 @@
 class Api::V1::SpeechController < ApplicationController
-  protect_from_forgery with: :null_session
-
   def index
     File.open('./app/assets/audio/speech.caf', 'wb') do |f|
         f.write request.body.read

@@ -828,7 +828,6 @@ Technical Debt: This project has two types of users, a client and a caretaker. W
 ## Extensions
 - Implement Websockets to stream audio from front end
 - Rearrange routing to allow list and task CRUD without client or caretaker association
-- Refactor `protect_from_forgery` methods in controllers
 
 ## Developers
 

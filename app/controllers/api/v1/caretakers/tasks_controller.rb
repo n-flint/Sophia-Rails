@@ -1,6 +1,4 @@
 class Api::V1::Caretakers::TasksController < ApplicationController
-  protect_from_forgery with: :null_session
-
   def index
     caretaker = Caretaker.find(params[:id])
     list = caretaker.lists.find(params[:list_id])
@@ -10,7 +8,6 @@ class Api::V1::Caretakers::TasksController < ApplicationController
   end
 
   def update
-    # require 'pry'; binding.pry
     caretaker = Caretaker.find(params[:id])
     list = caretaker.lists.find(params[:list_id])
     task = list.tasks.find(params[:task_id])
@@ -19,7 +16,7 @@ class Api::V1::Caretakers::TasksController < ApplicationController
   rescue ActiveRecord::RecordNotFound
     render json: { message: "Not Found" }, status: 404
   end
-  
+
   private
 
   def task_params

@@ -1,5 +1,6 @@
 class Api::V1::ClientsController < ApplicationController
-  protect_from_forgery with: :null_session
+  protect_from_forgery unless: -> { request.format.json? }
+
   wrap_parameters :client, include: [:username,
                                      :password,
                                      :password_confirmation,

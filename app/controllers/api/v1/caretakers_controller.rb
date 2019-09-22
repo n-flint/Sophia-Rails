@@ -1,5 +1,5 @@
 class Api::V1::CaretakersController < ApplicationController
-  protect_from_forgery with: :null_session
+  protect_from_forgery unless: -> { request.format.json? }
 
   def index
     caretakers = Caretaker.all
