@@ -2,17 +2,11 @@ require 'rails_helper'
 
 RSpec.describe 'Caretakers API' do
   it 'can delete a caretakers profile' do
-    @current_caretaker_1 = Caretaker.create({
-                "username": "existing_user_1",
-                "password": "password",
-                "name": "name1",
-                "email": "example@email.com",
-                "phone_number": "246342176",
-    })
+    caretaker = create(:caretaker)
 
     headers = { 'CONTENT_TYPE' => 'application/json'}
 
-    delete "/api/v1/caretakers/#{@current_caretaker_1.id}", headers: headers
+    delete "/api/v1/caretakers/#{caretaker.id}", headers: headers
 
     expect(status).to eq(204)
     expect(Caretaker.all).to eq([])

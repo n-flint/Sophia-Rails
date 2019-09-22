@@ -95,10 +95,10 @@ RSpec.describe "Task API update endpoint" do
     list = create(:list, client: client)
     task = create(:task, list: list)
 
-    new_date = Time.now + 1.day
+    new_date = Time.now + 7.days
 
     updated_task_data = {
-      due_date: new_date
+      due_date: new_date.strftime('%F')
     }
 
     headers = {
@@ -106,14 +106,11 @@ RSpec.describe "Task API update endpoint" do
       content_type: 'application/json'
     }
 
-    expect(task.completed).to be false
-
     patch "/api/v1/clients/#{client.id}/lists/#{list.id}/tasks/#{task.id}", headers: headers, params: updated_task_data
 
     expect(response).to be_successful
     expect(status).to eq(200)
 
-    updated_task_data = JSON.parse(response.body, symbolize_names: true)
     updated_task = Task.find(task.id)
 
     expect(updated_task.due_date.day).to eq(new_date.day)
