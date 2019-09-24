@@ -7,7 +7,7 @@ RSpec.describe 'Clients API' do
 
   it 'can create a new client profile' do
     new_client = {
-      username: "username1",
+      username: "clientUsername",
       password: "pass",
       password_confirmation: "pass",
       name: "name1",
@@ -31,7 +31,7 @@ RSpec.describe 'Clients API' do
     client = Client.find(data['id'])
 
     expect(response.code).to eq('201')
-    expect(data['username']).to eq('username1')
+    expect(data['username']).to eq('clientUsername')
     expect(data['name']).to eq('name1')
     expect(data['password']).to eq('pass')
     expect(data['street_address']).to eq('123 Fake St.')
@@ -46,7 +46,7 @@ RSpec.describe 'Clients API' do
     expect(data['medications']).to eq(['Cannabis'])
     expect(data['diet_restrictions']).to eq(['vegetarian', 'peanut-free'])
 
-    expect(client.username).to eq('username1')
+    expect(client.username).to eq('clientUsername')
     expect(client.role).to eq('client')
   end
 
