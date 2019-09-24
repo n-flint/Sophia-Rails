@@ -11,7 +11,7 @@ class Api::V1::ListsController < ApplicationController
     list = List.find(params[:id])
     render json: list
   rescue ActiveRecord::RecordNotFound
-    render json: { message: 'Not Found' }, status: 404
+    render json: { message: 'List Not Found' }, status: 404
   end
 
   def create
