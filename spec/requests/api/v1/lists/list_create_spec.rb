@@ -23,10 +23,10 @@ RSpec.describe 'Lists Create API' do
 
     list_data = JSON.parse(response.body, symbolize_names: true)
     new_list = List.last
-
-    expect(list_data[:name]).to eq(list.name)
-    expect(list_data[:client_id]).to eq(list.client_id)
-    expect(list_data[:caretaker_id]).to eq(list.caretaker_id)
+    binding.pry
+    expect(list_data[:name]).to eq(list[:name])
+    expect(list_data[:client_id]).to eq(list[:client_id])
+    expect(list_data[:caretaker_id]).to eq(list[:caretaker_id])
     expect(list_data).to have_key(:created_at)
     expect(list_data).to have_key(:updated_at)
 

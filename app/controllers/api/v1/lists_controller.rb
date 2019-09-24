@@ -1,4 +1,6 @@
 class Api::V1::ListsController < ApplicationController
+  protect_from_forgery unless: -> { request.format.json? }
+
   def index
     client = find_client
     caretaker = find_caretaker
@@ -12,7 +14,20 @@ class Api::V1::ListsController < ApplicationController
     render json: { message: 'Not Found' }, status: 404
   end
 
+  def create
+    list = List.new(list_params)
+    if list.save
+      render json: list
+    else
+      render json: list.errors, status: 400
+    end
+  end
+
   private
+
+  def list_params
+    params.permit(:name, :client_id, :caretaker_id)
+  end
 
   def render_lists(client, caretaker)
     if client
