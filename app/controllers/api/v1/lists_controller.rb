@@ -23,6 +23,14 @@ class Api::V1::ListsController < ApplicationController
     end
   end
 
+  def update
+    list = List.find(params[:id])
+    list.update_attributes({name: params[:name]})
+    render json: list
+  rescue ActiveRecord::RecordNotFound
+    render json: { message: 'List Not Found' }, status: 404
+  end
+
   private
 
   def list_params

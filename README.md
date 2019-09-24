@@ -114,6 +114,7 @@ bundle exec rspec spec/models
 - [Index](#lists-index)
 - [Show](#lists-show)
 - [Create](#lists-create)
+- [Update](#lists-update)
 ### Tasks
 - [Index](#tasks-index)
 
@@ -550,6 +551,38 @@ Unsuccessful Response:
 A valid client ID must be provided or a 404 status code (page not found) will be returned.
 
 *caretakers are optional*
+
+### Lists Update
+
+#### GET /api/v1/lists/:list_id
+
+##### Headers:
+```
+Content-Type: application/json
+Accept: application/json
+```
+
+##### Body:
+```
+{
+  name: 'New Name'
+}
+```
+
+Successful Response:
+
+```json
+{
+  "id": 3238,
+  "name": "New Name",
+  "client_id": 4227,
+  "created_at": "2019-09-24T23:21:44.326Z",
+  "updated_at": "2019-09-24T23:21:44.326Z",
+  "caretaker_id": 2759
+}
+```
+Unsuccessful Response:
+A valid list ID must be provided or a 404 status code (page not found) will be returned.
 
 ## Tasks
 ### Tasks Index
