@@ -21,12 +21,14 @@ Rails.application.routes.draw do
       post '/login', to: 'login#create'
 
       resources :clients, only: [:show, :update, :create, :destroy] do
-        resources :lists do
+        resources :lists, only: [] do
           resources :tasks, only: [:create, :index, :update, :destroy]
         end
       end
 
       resources :caretakers, only: [:create, :update, :destroy, :show, :index]
+
+      resources :lists, only: [:index]
     end
   end
 end
