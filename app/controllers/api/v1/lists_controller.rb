@@ -5,6 +5,13 @@ class Api::V1::ListsController < ApplicationController
     render_lists(client, caretaker)
   end
 
+  def show
+    list = List.find(params[:id])
+    render json: list
+  rescue ActiveRecord::RecordNotFound
+    render json: { message: 'Not Found' }, status: 404
+  end
+
   private
 
   def render_lists(client, caretaker)

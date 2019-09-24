@@ -10,10 +10,10 @@ Rails.application.routes.draw do
 
       resources :caretakers, only: [:create, :update, :destroy, :show, :index]
 
-      resources :lists, only: [:index] do
+      resources :lists, only: [:index, :show, :create] do
         resources :tasks, only: [:index]
       end
-      
+
     end
   end
 end

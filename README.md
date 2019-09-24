@@ -112,6 +112,7 @@ bundle exec rspec spec/models
 
 ### Lists
 - [Index](#lists-index)
+- [Show](#lists-show)
 ### Tasks
 - [Index](#tasks-index)
 
@@ -439,44 +440,6 @@ Send a PATCH request to update a caretaker
   ##### Unsuccessful Response
   A valid caretaker ID must be provided or a 404 status code (page not found) will be returned.
 
-## Tasks
-### Tasks Index
-
-#### GET /api/v1/lists/:list_id/tasks
-
-##### Headers:
-```
-Content-Type: application/json
-Accept: application/json
-```
-
-Successful Response:
-```json
-[
-    {
-        "id": 1,
-        "list_id": 1,
-        "name": "Gala Apples",
-        "description": "Should be on sale",
-        "completed": false,
-        "created_at": "2019-09-21T18:56:50.730Z",
-        "updated_at": "2019-09-21T18:56:50.730Z"
-    },
-    {
-        "id": 2,
-        "list_id": 1,
-        "name": "Green Onions",
-        "description": "Should be on sale",
-        "completed": false,
-        "created_at": "2019-09-21T18:56:50.738Z",
-        "updated_at": "2019-09-21T18:56:50.738Z"
-    }
-]
-```
-
-unsuccessful Response:
-A valid client or caretaker ID must be provided or a 404 status code (page not found) will be returned.
-
 ## Lists
 ### Lists Index
 
@@ -522,8 +485,73 @@ Successful Response:
     }
 ]
 ```
+Unsuccessful Response:
+A valid client or caretaker ID must be provided or a 404 status code (page not found) will be returned.
+
+### Lists Show
+
+#### GET /api/v1/lists/:list_id
+
+##### Headers:
+```
+Content-Type: application/json
+Accept: application/json
+```
+
+Successful Response:
+
+```json
+{
+    "id": 1,
+    "name": "Groceries",
+    "client_id": 1,
+    "created_at": "2019-09-21T18:56:50.716Z",
+    "updated_at": "2019-09-21T18:56:50.716Z",
+    "caretaker_id": 1
+}
+```
+
+Unsuccessful Response:
+A valid list ID must be provided or a 404 status code (page not found) will be returned.
+
+## Tasks
+### Tasks Index
+
+#### GET /api/v1/lists/:list_id/tasks
+
+##### Headers:
+```
+Content-Type: application/json
+Accept: application/json
+```
+
+Successful Response:
+```json
+[
+    {
+        "id": 1,
+        "list_id": 1,
+        "name": "Gala Apples",
+        "description": "Should be on sale",
+        "completed": false,
+        "created_at": "2019-09-21T18:56:50.730Z",
+        "updated_at": "2019-09-21T18:56:50.730Z"
+    },
+    {
+        "id": 2,
+        "list_id": 1,
+        "name": "Green Onions",
+        "description": "Should be on sale",
+        "completed": false,
+        "created_at": "2019-09-21T18:56:50.738Z",
+        "updated_at": "2019-09-21T18:56:50.738Z"
+    }
+]
+```
+
 unsuccessful Response:
 A valid client or caretaker ID must be provided or a 404 status code (page not found) will be returned.
+
 
 ## Login
 Send a POST request to get user id from username and password
