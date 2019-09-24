@@ -18,13 +18,13 @@ class Api::V1::ListsController < ApplicationController
   end
 
   def find_client
-    client = Client.find(params[:client_id])
+    Client.find(params[:client_id])
   rescue ActiveRecord::RecordNotFound
     nil
   end
 
   def find_caretaker
-    caretaker = Caretaker.find(params[:caretaker_id])
+    Caretaker.find(params[:caretaker_id])
   rescue ActiveRecord::RecordNotFound
     nil
   end
