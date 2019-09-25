@@ -23,6 +23,15 @@ class Api::V1::TasksController < ApplicationController
     end
   end
 
+  def update
+    list = List.find(params[:list_id])
+    task = list.tasks.find(params[:id])
+    task.update_attributes(task_params)
+    render json: TaskSerializer.new(task)
+  rescue ActiveRecord::RecordNotFound
+    render json: { message: 'Not Found' }, status: 404
+  end
+
   private
 
   def task_params

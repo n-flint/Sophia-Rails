@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       resources :caretakers, only: [:create, :update, :destroy, :show, :index]
 
       resources :lists, only: [:index, :show, :create, :update, :destroy] do
-        resources :tasks, only: [:index, :show, :create]
+        resources :tasks, only: [:index, :show, :create, :update]
       end
 
     end

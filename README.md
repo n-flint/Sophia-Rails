@@ -120,6 +120,7 @@ bundle exec rspec spec/models
 - [Index](#tasks-index)
 - [Show](#tasks-show)
 - [Create](#tasks-create)
+- [Update](#tasks-update)
 
 ### Login
 - [Login](#login)
@@ -706,6 +707,39 @@ Successful Response:
 Unsuccessful Response:
 A valid list ID must be provided or a 404 status code (page not found) will be returned.
 
+### Tasks Update
+
+#### PATCH /api/v1/lists/:list_id/tasks/:task_id
+
+##### Headers:
+```
+Content-Type: application/json
+Accept: application/json
+```
+
+##### Body:
+```
+{
+  name: 'New Name'
+}
+```
+
+Successful Response:
+```json
+{
+  "id": 77,
+  "list_id": 3,
+  "name": "New Name",
+  "description": "make sure to weedeat",
+  "completed": false,
+  "created_at": "2019-09-25T19:33:36.071Z",
+  "updated_at": "2019-09-25T19:33:36.071Z",
+  "due_date": "12/25"
+}
+```
+
+Unsuccessful Response:
+A valid list and task ID must be provided or a 404 status code (page not found) will be returned.
 
 ## Login
 Send a POST request to get user id from username and password
