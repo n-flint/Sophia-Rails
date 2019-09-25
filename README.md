@@ -118,6 +118,10 @@ bundle exec rspec spec/models
 - [Delete](#lists-delete)
 ### Tasks
 - [Index](#tasks-index)
+- [Show](#tasks-show)
+- [Create](#tasks-create)
+- [Update](#tasks-update)
+- [Delete](#tasks-delete)
 
 ### Login
 - [Login](#login)
@@ -636,9 +640,123 @@ Successful Response:
 ]
 ```
 
-unsuccessful Response:
+Unsuccessful Response:
 A valid client or caretaker ID must be provided or a 404 status code (page not found) will be returned.
 
+### Tasks Show
+
+#### GET /api/v1/lists/:list_id/tasks/:task_id
+
+##### Headers:
+```
+Content-Type: application/json
+Accept: application/json
+```
+
+Successful Response:
+```json
+{
+    "id": 2,
+    "list_id": 1,
+    "name": "Green Onions",
+    "description": "Should be on sale",
+    "completed": false,
+    "created_at": "2019-09-21T18:56:50.738Z",
+    "updated_at": "2019-09-21T18:56:50.738Z"
+}
+```
+
+Unsuccessful Response:
+A valid list and task ID must be provided or a 404 status code (page not found) will be returned. Also the task given must be associated with the list given or a 404 will be returned.
+
+### Tasks Create
+
+#### post /api/v1/lists/:list_id/tasks
+
+##### Headers:
+```
+Content-Type: application/json
+Accept: application/json
+```
+
+##### Body:
+```
+{
+  name: 'Mow Back Yard',
+  description: 'make sure to weedeat',
+  list_id: 3,
+  due_date: '2019-12-25'
+}
+```
+*due date is optional*
+
+Successful Response:
+```json
+{
+  "id": 77,
+  "list_id": 3,
+  "name": "Mow Back Yard",
+  "description": "make sure to weedeat",
+  "completed": false,
+  "created_at": "2019-09-25T19:33:36.071Z",
+  "updated_at": "2019-09-25T19:33:36.071Z",
+  "due_date": "12/25"
+}
+```
+*Due date format is due to front end request*
+
+Unsuccessful Response:
+A valid list ID must be provided or a 404 status code (page not found) will be returned.
+
+### Tasks Update
+
+#### PATCH /api/v1/lists/:list_id/tasks/:task_id
+
+##### Headers:
+```
+Content-Type: application/json
+Accept: application/json
+```
+
+##### Body:
+```
+{
+  name: 'New Name'
+}
+```
+
+Successful Response:
+```json
+{
+  "id": 77,
+  "list_id": 3,
+  "name": "New Name",
+  "description": "make sure to weedeat",
+  "completed": false,
+  "created_at": "2019-09-25T19:33:36.071Z",
+  "updated_at": "2019-09-25T19:33:36.071Z",
+  "due_date": "12/25"
+}
+```
+
+Unsuccessful Response:
+A valid list and task ID must be provided or a 404 status code (page not found) will be returned.
+
+### Tasks Delete
+
+#### DELETE /api/v1/lists/:list_id/tasks/:task_id
+
+##### Headers:
+```
+Content-Type: application/json
+Accept: application/json
+```
+
+Successful Response:
+Returns 204 status with no body
+
+Unsuccessful Response:
+A valid list and task ID must be provided or a 404 status code (page not found) will be returned.
 
 ## Login
 Send a POST request to get user id from username and password
@@ -736,10 +854,10 @@ Technical Debt: This project has two types of users, a client and a caretaker. W
 
 👤 **Noah Flint, Vince Carollo, Katie Lewis, Andreea Hanson**
 
-* [@n-flint](https://github.com/n-flint)
-* [@VinceCarollo](https://github.com/VinceCarollo)
-* [@Kalex19](https://github.com/Kalex19)
-* [@andreeahanson](https://github.com/andreeahanson)
+* [Vince Carollo](https://github.com/n-flint)
+* [Noah Flint](https://github.com/VinceCarollo)
+* [Katie Lewis](https://github.com/Kalex19)
+* [Andreea Hanson](https://github.com/andreeahanson)
 
 ## Frontend
 
