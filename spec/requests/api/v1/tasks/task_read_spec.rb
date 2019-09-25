@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Tasks API' do
+RSpec.describe 'Tasks Read API' do
   it "gets all tasks" do
     list = create(:list)
     task1 = create(:task, list: list)

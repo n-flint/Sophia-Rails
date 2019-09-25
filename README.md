@@ -119,6 +119,7 @@ bundle exec rspec spec/models
 ### Tasks
 - [Index](#tasks-index)
 - [Show](#tasks-show)
+- [Create](#tasks-create)
 
 ### Login
 - [Login](#login)
@@ -665,6 +666,46 @@ Successful Response:
 
 Unsuccessful Response:
 A valid list and task ID must be provided or a 404 status code (page not found) will be returned. Also the task given must be associated with the list given or a 404 will be returned.
+
+### Tasks Create
+
+#### post /api/v1/lists/:list_id/tasks
+
+##### Headers:
+```
+Content-Type: application/json
+Accept: application/json
+```
+
+##### Body:
+```
+{
+  name: 'Mow Back Yard',
+  description: 'make sure to weedeat',
+  list_id: 3,
+  due_date: '2019-12-25'
+}
+```
+*due date is optional*
+
+Successful Response:
+```json
+{
+  "id": 77,
+  "list_id": 3,
+  "name": "Mow Back Yard",
+  "description": "make sure to weedeat",
+  "completed": false,
+  "created_at": "2019-09-25T19:33:36.071Z",
+  "updated_at": "2019-09-25T19:33:36.071Z",
+  "due_date": "12/25"
+}
+```
+*Due date format is due to front end request*
+
+Unsuccessful Response:
+A valid list ID must be provided or a 404 status code (page not found) will be returned.
+
 
 ## Login
 Send a POST request to get user id from username and password
