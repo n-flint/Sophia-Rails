@@ -24,6 +24,7 @@ RSpec.describe 'Tasks Read API' do
     expect(tasks.first).to have_key(:name)
     expect(tasks.first).to have_key(:description)
     expect(tasks.first).to have_key(:due_date)
+    expect(tasks.first).to have_key(:priority)
     expect(tasks.first).to have_key(:created_at)
     expect(tasks.first).to have_key(:updated_at)
     expect(tasks.first[:completed]).to be false
@@ -52,6 +53,7 @@ RSpec.describe 'Tasks Read API' do
     expect(task_data[:list_id]).to eq(task.list_id)
 
     expect(task_data).to have_key(:due_date)
+    expect(task_data).to have_key(:priority)
     expect(task_data).to have_key(:created_at)
     expect(task_data).to have_key(:updated_at)
   end
