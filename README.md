@@ -121,6 +121,7 @@ bundle exec rspec spec/models
 - [Show](#tasks-show)
 - [Create](#tasks-create)
 - [Update](#tasks-update)
+- [Delete](#tasks-delete)
 
 ### Login
 - [Login](#login)
@@ -737,6 +738,22 @@ Successful Response:
   "due_date": "12/25"
 }
 ```
+
+Unsuccessful Response:
+A valid list and task ID must be provided or a 404 status code (page not found) will be returned.
+
+### Tasks Delete
+
+#### DELETE /api/v1/lists/:list_id/tasks/:task_id
+
+##### Headers:
+```
+Content-Type: application/json
+Accept: application/json
+```
+
+Successful Response:
+Returns 204 status with no body
 
 Unsuccessful Response:
 A valid list and task ID must be provided or a 404 status code (page not found) will be returned.
