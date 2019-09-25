@@ -29,4 +29,30 @@ RSpec.describe 'Tasks API' do
     expect(tasks.first[:completed]).to be false
     expect(tasks.first[:list_id]).to eq(list.id)
   end
+
+  it "gets one task" do
+    list = create(:list)
+    task = create(:task, list: list)
+
+    headers = {
+      content_type: "application/json",
+      accept: "application/json"
+    }
+
+    get "/api/v1/lists/#{list.id}/tasks/#{task.id}", headers: headers
+
+    expect(response).to be_successful
+    expect(status).to eq(200)
+
+    task_data = JSON.parse(response.body, symbolize_names: true)
+
+    expect(task_data[:name]).to eq(task.name)
+    expect(task_data[:description]).to eq(task.description)
+    expect(task_data[:completed]).to eq(task.completed)
+    expect(task_data[:list_id]).to eq(task.list_id)
+
+    expect(task_data).to have_key(:due_date)
+    expect(task_data).to have_key(:created_at)
+    expect(task_data).to have_key(:updated_at)
+  end
 end

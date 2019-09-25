@@ -118,6 +118,7 @@ bundle exec rspec spec/models
 - [Delete](#lists-delete)
 ### Tasks
 - [Index](#tasks-index)
+- [Show](#tasks-show)
 
 ### Login
 - [Login](#login)
@@ -636,9 +637,34 @@ Successful Response:
 ]
 ```
 
-unsuccessful Response:
+Unsuccessful Response:
 A valid client or caretaker ID must be provided or a 404 status code (page not found) will be returned.
 
+### Tasks Show
+
+#### GET /api/v1/lists/:list_id/tasks/:task_id
+
+##### Headers:
+```
+Content-Type: application/json
+Accept: application/json
+```
+
+Successful Response:
+```json
+{
+    "id": 2,
+    "list_id": 1,
+    "name": "Green Onions",
+    "description": "Should be on sale",
+    "completed": false,
+    "created_at": "2019-09-21T18:56:50.738Z",
+    "updated_at": "2019-09-21T18:56:50.738Z"
+}
+```
+
+Unsuccessful Response:
+A valid list and task ID must be provided or a 404 status code (page not found) will be returned. Also the task given must be associated with the list given or a 404 will be returned.
 
 ## Login
 Send a POST request to get user id from username and password
@@ -736,10 +762,10 @@ Technical Debt: This project has two types of users, a client and a caretaker. W
 
 👤 **Noah Flint, Vince Carollo, Katie Lewis, Andreea Hanson**
 
-* [@n-flint](https://github.com/n-flint)
-* [@VinceCarollo](https://github.com/VinceCarollo)
-* [@Kalex19](https://github.com/Kalex19)
-* [@andreeahanson](https://github.com/andreeahanson)
+* [Vince Carollo](https://github.com/n-flint)
+* [Noah Flint](https://github.com/VinceCarollo)
+* [Katie Lewis](https://github.com/Kalex19)
+* [Andreea Hanson](https://github.com/andreeahanson)
 
 ## Frontend
 
