@@ -115,6 +115,7 @@ bundle exec rspec spec/models
 - [Show](#lists-show)
 - [Create](#lists-create)
 - [Update](#lists-update)
+- [Delete](#lists-delete)
 ### Tasks
 - [Index](#tasks-index)
 
@@ -581,6 +582,22 @@ Successful Response:
   "caretaker_id": 2759
 }
 ```
+Unsuccessful Response:
+A valid list ID must be provided or a 404 status code (page not found) will be returned.
+
+### Lists Delete
+
+#### DELETE /api/v1/lists/:list_id
+
+##### Headers:
+```
+Content-Type: application/json
+Accept: application/json
+```
+
+Successful Response:
+Returns 204 status with no body
+
 Unsuccessful Response:
 A valid list ID must be provided or a 404 status code (page not found) will be returned.
 
