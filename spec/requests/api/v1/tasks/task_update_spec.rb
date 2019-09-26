@@ -26,6 +26,7 @@ RSpec.describe 'Tasks Update API' do
     expect(task_data).to have_key(:completed)
     expect(task_data).to have_key(:list_id)
     expect(task_data).to have_key(:due_date)
+    expect(task_data).to have_key(:priority)
     expect(task_data).to have_key(:created_at)
     expect(task_data).to have_key(:updated_at)
 

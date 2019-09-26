@@ -7,8 +7,7 @@ class Api::V1::TasksController < ApplicationController
   end
 
   def show
-    list = List.find(params[:list_id])
-    task = list.tasks.find(params[:id])
+    task = Task.find(params[:id])
     render json: TaskSerializer.new(task)
   rescue ActiveRecord::RecordNotFound
     render json: { message: 'Not Found' }, status: 404
@@ -24,8 +23,7 @@ class Api::V1::TasksController < ApplicationController
   end
 
   def update
-    list = List.find(params[:list_id])
-    task = list.tasks.find(params[:id])
+    task = Task.find(params[:id])
     task.update_attributes(task_params)
     render json: TaskSerializer.new(task)
   rescue ActiveRecord::RecordNotFound
@@ -33,8 +31,7 @@ class Api::V1::TasksController < ApplicationController
   end
 
   def destroy
-    list = List.find(params[:list_id])
-    task = list.tasks.find(params[:id])
+    task = Task.find(params[:id])
     task.destroy
     render json: {}, status: 204
   rescue ActiveRecord::RecordNotFound
@@ -44,6 +41,6 @@ class Api::V1::TasksController < ApplicationController
   private
 
   def task_params
-    params.permit(:name, :description, :list_id, :due_date)
+    params.permit(:name, :description, :list_id, :due_date, :priority)
   end
 end

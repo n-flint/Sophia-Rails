@@ -13,7 +13,8 @@ RSpec.describe 'Tasks Create API' do
       name: 'Mow Back Yard',
       description: 'make sure to weedeat',
       list_id: list.id,
-      due_date: '2019-12-28'
+      due_date: '2019-12-28',
+      priority: 'low'
     }
 
     post "/api/v1/lists/#{list.id}/tasks", headers: headers, params: body
@@ -24,6 +25,7 @@ RSpec.describe 'Tasks Create API' do
     task_data = JSON.parse(response.body, symbolize_names: true)
 
     expect(task_data[:name]).to eq(body[:name])
+    expect(task_data[:priority]).to eq(body[:priority])
     expect(task_data[:description]).to eq(body[:description])
     expect(task_data[:completed]).to be false
     expect(task_data[:list_id]).to eq(list.id)
@@ -68,7 +70,7 @@ RSpec.describe 'Tasks Create API' do
     body = {
       name: 'Mow Back Yard',
       description: 'make sure to weedeat',
-      list_id: list.id
+      list_id: list.id,
     }
 
     post "/api/v1/lists/#{list.id}/tasks", headers: headers, params: body
@@ -79,6 +81,7 @@ RSpec.describe 'Tasks Create API' do
     task_data = JSON.parse(response.body, symbolize_names: true)
 
     expect(task_data[:name]).to eq(body[:name])
+    expect(task_data[:priority]).to eq('medium')
     expect(task_data[:description]).to eq(body[:description])
     expect(task_data[:completed]).to be false
     expect(task_data[:list_id]).to eq(list.id)
