@@ -35,6 +35,29 @@ RSpec.describe 'Tasks Update API' do
     expect(task.name).to eq(body[:name])
   end
 
+  it "can update a tasks completed status" do
+    list = create(:list)
+    task = create(:task, list: list)
+
+    body = {
+      completed: true
+    }
+
+    headers = {
+      content_type: "application/json",
+      accept: "application/json"
+    }
+
+    patch "/api/v1/lists/#{list.id}/tasks/#{task.id}", headers: headers, params: body
+
+    expect(response).to be_successful
+    expect(status).to eq(200)
+
+    task.reload
+
+    expect(task.completed).to be true
+  end
+
   it "can update a tasks due date" do
     list = create(:list)
     task = create(:task, list: list)
