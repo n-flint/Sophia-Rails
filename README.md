@@ -458,17 +458,13 @@ Content-Type: application/json
 Accept: application/json
 ```
 
-##### Body:
+##### params:
 ```
-{
-  client_id: 2
-}
+?client_id=2
 ```
 or
 ```
-{
-  caretaker_id: 2
-}
+?caretaker_id=2
 ```
 
 Successful Response:
